@@ -1,0 +1,82 @@
+Info: Starting: Create simulation model
+Info: qsys-generate C:\Users\lykan\Documents\uart_project\uart.qsys --simulation=VERILOG --allow-mixed-language-simulation --output-directory=C:\Users\lykan\Documents\uart_project\uart\simulation --family="Cyclone V" --part=5CGXFC7C7F23C8
+Progress: Loading uart_project/uart.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 20.1]
+Progress: Parameterizing module clk_0
+Progress: Adding rs232_0 [altera_up_avalon_rs232 17.1]
+Progress: Parameterizing module rs232_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: uart.rs232_0: rs232_0.external_interface must be exported, or connected to a matching conduit.
+Warning: uart.rs232_0: Interrupt sender rs232_0.interrupt is not connected to an interrupt receiver
+Warning: uart.rs232_0: rs232_0.avalon_rs232_slave must be connected to an Avalon-MM master
+Info: uart: Generating uart "uart" for SIM_VERILOG
+Info: rs232_0: Starting Generation of RS232 UART
+Info: rs232_0: "uart" instantiated altera_up_avalon_rs232 "rs232_0"
+Info: rst_controller: "uart" instantiated altera_reset_controller "rst_controller"
+Info: uart: Done "uart" with 3 modules, 9 files
+Info: qsys-generate succeeded.
+Info: Finished: Create simulation model
+Info: Starting: Create Modelsim Project.
+Info: sim-script-gen --spd=C:\Users\lykan\Documents\uart_project\uart\uart.spd --output-directory=C:/Users/lykan/Documents/uart_project/uart/simulation/ --use-relative-paths=true
+Info: Doing: ip-make-simscript --spd=C:\Users\lykan\Documents\uart_project\uart\uart.spd --output-directory=C:/Users/lykan/Documents/uart_project/uart/simulation/ --use-relative-paths=true
+Info: Generating the following file(s) for MODELSIM simulator in C:/Users/lykan/Documents/uart_project/uart/simulation/ directory:
+Info: 	mentor/msim_setup.tcl
+Info: Generating the following file(s) for VCS simulator in C:/Users/lykan/Documents/uart_project/uart/simulation/ directory:
+Info: 	synopsys/vcs/vcs_setup.sh
+Info: Generating the following file(s) for VCSMX simulator in C:/Users/lykan/Documents/uart_project/uart/simulation/ directory:
+Info: 	synopsys/vcsmx/synopsys_sim.setup
+Info: 	synopsys/vcsmx/vcsmx_setup.sh
+Info: Generating the following file(s) for NCSIM simulator in C:/Users/lykan/Documents/uart_project/uart/simulation/ directory:
+Info: 	cadence/cds.lib
+Info: 	cadence/hdl.var
+Info: 	cadence/ncsim_setup.sh
+Info: 	2 .cds.lib files in cadence/cds_libs/ directory
+Info: Generating the following file(s) for RIVIERA simulator in C:/Users/lykan/Documents/uart_project/uart/simulation/ directory:
+Info: 	aldec/rivierapro_setup.tcl
+Info: For information on how to simulate your IP, see the explanatory comments in the simulator-specific subdirectories under C:/Users/lykan/Documents/uart_project/uart/simulation/.
+Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
+Info: Finished: Create Modelsim Project.
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\Users\lykan\Documents\uart_project\uart.qsys --block-symbol-file --output-directory=C:\Users\lykan\Documents\uart_project\uart --family="Cyclone V" --part=5CGXFC7C7F23C8
+Progress: Loading uart_project/uart.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 20.1]
+Progress: Parameterizing module clk_0
+Progress: Adding rs232_0 [altera_up_avalon_rs232 17.1]
+Progress: Parameterizing module rs232_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: uart.rs232_0: rs232_0.external_interface must be exported, or connected to a matching conduit.
+Warning: uart.rs232_0: Interrupt sender rs232_0.interrupt is not connected to an interrupt receiver
+Warning: uart.rs232_0: rs232_0.avalon_rs232_slave must be connected to an Avalon-MM master
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Users\lykan\Documents\uart_project\uart.qsys --synthesis=VERILOG --output-directory=C:\Users\lykan\Documents\uart_project\uart\synthesis --family="Cyclone V" --part=5CGXFC7C7F23C8
+Progress: Loading uart_project/uart.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 20.1]
+Progress: Parameterizing module clk_0
+Progress: Adding rs232_0 [altera_up_avalon_rs232 17.1]
+Progress: Parameterizing module rs232_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: uart.rs232_0: rs232_0.external_interface must be exported, or connected to a matching conduit.
+Warning: uart.rs232_0: Interrupt sender rs232_0.interrupt is not connected to an interrupt receiver
+Warning: uart.rs232_0: rs232_0.avalon_rs232_slave must be connected to an Avalon-MM master
+Info: uart: Generating uart "uart" for QUARTUS_SYNTH
+Info: rs232_0: Starting Generation of RS232 UART
+Info: rs232_0: "uart" instantiated altera_up_avalon_rs232 "rs232_0"
+Info: rst_controller: "uart" instantiated altera_reset_controller "rst_controller"
+Info: uart: Done "uart" with 3 modules, 9 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis
