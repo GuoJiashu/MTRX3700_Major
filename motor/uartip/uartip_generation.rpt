@@ -1,0 +1,73 @@
+Info: Starting: Create simulation model
+Info: qsys-generate C:\Users\lykan\MTRX3700_Major\motor\uartip.qsys --simulation=VERILOG --allow-mixed-language-simulation --output-directory=C:\Users\lykan\MTRX3700_Major\motor\uartip\simulation --family="Cyclone IV E" --part=EP4CE115F29C7
+Progress: Loading motor/uartip.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 20.1]
+Progress: Parameterizing module clk_0
+Progress: Adding rs232_0 [altera_up_avalon_rs232 17.1]
+Progress: Parameterizing module rs232_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: uartip: Generating uartip "uartip" for SIM_VERILOG
+Info: rs232_0: Starting Generation of RS232 UART
+Info: rs232_0: "uartip" instantiated altera_up_avalon_rs232 "rs232_0"
+Info: rst_controller: "uartip" instantiated altera_reset_controller "rst_controller"
+Info: uartip: Done "uartip" with 3 modules, 9 files
+Info: qsys-generate succeeded.
+Info: Finished: Create simulation model
+Info: Starting: Create Modelsim Project.
+Info: sim-script-gen --spd=C:\Users\lykan\MTRX3700_Major\motor\uartip\uartip.spd --output-directory=C:/Users/lykan/MTRX3700_Major/motor/uartip/simulation/ --use-relative-paths=true
+Info: Doing: ip-make-simscript --spd=C:\Users\lykan\MTRX3700_Major\motor\uartip\uartip.spd --output-directory=C:/Users/lykan/MTRX3700_Major/motor/uartip/simulation/ --use-relative-paths=true
+Info: Generating the following file(s) for MODELSIM simulator in C:/Users/lykan/MTRX3700_Major/motor/uartip/simulation/ directory:
+Info: 	mentor/msim_setup.tcl
+Info: Generating the following file(s) for VCS simulator in C:/Users/lykan/MTRX3700_Major/motor/uartip/simulation/ directory:
+Info: 	synopsys/vcs/vcs_setup.sh
+Info: Generating the following file(s) for VCSMX simulator in C:/Users/lykan/MTRX3700_Major/motor/uartip/simulation/ directory:
+Info: 	synopsys/vcsmx/synopsys_sim.setup
+Info: 	synopsys/vcsmx/vcsmx_setup.sh
+Info: Generating the following file(s) for NCSIM simulator in C:/Users/lykan/MTRX3700_Major/motor/uartip/simulation/ directory:
+Info: 	cadence/cds.lib
+Info: 	cadence/hdl.var
+Info: 	cadence/ncsim_setup.sh
+Info: 	2 .cds.lib files in cadence/cds_libs/ directory
+Info: Generating the following file(s) for RIVIERA simulator in C:/Users/lykan/MTRX3700_Major/motor/uartip/simulation/ directory:
+Info: 	aldec/rivierapro_setup.tcl
+Info: For information on how to simulate your IP, see the explanatory comments in the simulator-specific subdirectories under C:/Users/lykan/MTRX3700_Major/motor/uartip/simulation/.
+Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
+Info: Finished: Create Modelsim Project.
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\Users\lykan\MTRX3700_Major\motor\uartip.qsys --block-symbol-file --output-directory=C:\Users\lykan\MTRX3700_Major\motor\uartip --family="Cyclone IV E" --part=EP4CE115F29C7
+Progress: Loading motor/uartip.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 20.1]
+Progress: Parameterizing module clk_0
+Progress: Adding rs232_0 [altera_up_avalon_rs232 17.1]
+Progress: Parameterizing module rs232_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Users\lykan\MTRX3700_Major\motor\uartip.qsys --synthesis=VERILOG --output-directory=C:\Users\lykan\MTRX3700_Major\motor\uartip\synthesis --family="Cyclone IV E" --part=EP4CE115F29C7
+Progress: Loading motor/uartip.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 20.1]
+Progress: Parameterizing module clk_0
+Progress: Adding rs232_0 [altera_up_avalon_rs232 17.1]
+Progress: Parameterizing module rs232_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: uartip: Generating uartip "uartip" for QUARTUS_SYNTH
+Info: rs232_0: Starting Generation of RS232 UART
+Info: rs232_0: "uartip" instantiated altera_up_avalon_rs232 "rs232_0"
+Info: rst_controller: "uartip" instantiated altera_reset_controller "rst_controller"
+Info: uartip: Done "uartip" with 3 modules, 9 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis
