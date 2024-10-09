@@ -367,7 +367,7 @@ class App:
             else:
                 self.display_message("Not connected to Arduino")
             self.message_sending_in_progress = True
-            self.master.after(1300, self.message_sent)  # 1.3 秒的间隔
+            self.master.after(100, self.message_sent)  # 1.3 秒的间隔
         else:
             self.message_sending_in_progress = False
 
