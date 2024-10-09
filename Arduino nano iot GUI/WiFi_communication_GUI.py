@@ -2,7 +2,7 @@ import socket
 import threading
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
-from tkinter import messagebox  # 正确导入 messagebox
+from tkinter import messagebox
 import queue
 from PIL import Image, ImageTk
 import os
@@ -143,20 +143,26 @@ class App:
         # 显示暂停/开始的图像（调整大小）
         self.display_pause_start_image()
 
-        # 绑定 WASD 键盘事件和空格键
-        self.bind_keys()
-
-        # 创建 ToggleSwitch
-        self.toggle_switch = ToggleSwitch(master, width=60, height=30, command=self.on_toggle_switch)
-        self.toggle_switch.pack(pady=10)
+        # 定义键到位的映射
+        self.key_to_bit = {'w': 1, 'a': 2, 's': 4, 'd': 8}
 
         # 初始化按键状态和消息队列
         self.keys_pressed = set()
         self.message_queue = queue.Queue()
         self.message_sending_in_progress = False
 
+        # 跟踪最后发送的独热码
+        self.last_sent_bitmask = None
+
         # 初始化暂停状态
         self.is_paused = False
+
+        # 绑定 WASD 键盘事件和空格键
+        self.bind_keys()
+
+        # 创建 ToggleSwitch
+        self.toggle_switch = ToggleSwitch(master, width=60, height=30, command=self.on_toggle_switch)
+        self.toggle_switch.pack(pady=10)
 
         # 启动 socket 服务器线程
         self.socket_thread = threading.Thread(target=self.run_socket_server, daemon=True)
@@ -165,6 +171,12 @@ class App:
         # 定期检查消息队列
         self.master.after(100, self.process_queue)
         self.master.after(100, self.process_message_queue)
+
+        # 添加底部状态栏
+        self.add_bottom_status_bar()
+
+        # 启动持续发送独热码的定时任务
+        self.master.after(1300, self.continuous_send_bitmask)
 
         # 处理窗口关闭事件
         master.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -219,7 +231,7 @@ class App:
             sys.exit(1)
 
     def display_directional_images(self):
-        # 为每个方向创建标签（保持原始尺寸）
+        # 创建标签以显示方向图像
         self.up_label = tk.Label(self.image_frame, image=self.gray_up_img)
         self.up_label.grid(row=0, column=1)
 
@@ -239,21 +251,27 @@ class App:
 
     def bind_keys(self):
         # 绑定按键事件到主窗口
-        self.master.bind("<KeyPress-w>", self.on_key_press_w)
-        self.master.bind("<KeyRelease-w>", self.on_key_release_w)
-        self.master.bind("<KeyPress-s>", self.on_key_press_s)
-        self.master.bind("<KeyRelease-s>", self.on_key_release_s)
-        self.master.bind("<KeyPress-a>", self.on_key_press_a)
-        self.master.bind("<KeyRelease-a>", self.on_key_release_a)
-        self.master.bind("<KeyPress-d>", self.on_key_press_d)
-        self.master.bind("<KeyRelease-d>", self.on_key_release_d)
+        self.master.bind("<KeyPress-w>", self.on_key_press)
+        self.master.bind("<KeyRelease-w>", self.on_key_release)
+        self.master.bind("<KeyPress-s>", self.on_key_press)
+        self.master.bind("<KeyRelease-s>", self.on_key_release)
+        self.master.bind("<KeyPress-a>", self.on_key_press)
+        self.master.bind("<KeyRelease-a>", self.on_key_release)
+        self.master.bind("<KeyPress-d>", self.on_key_press)
+        self.master.bind("<KeyRelease-d>", self.on_key_release)
 
         # 绑定空格键事件
         self.master.bind("<KeyPress-space>", self.on_space_press)
 
+    def add_bottom_status_bar(self):
+        # 创建底部状态栏
+        self.bottom_status_label = tk.Label(self.master, text="Auto Mode Off", bg="red", bd=1, relief=tk.SUNKEN,
+                                            anchor='w', font=("Arial", 10))
+        self.bottom_status_label.pack(side='bottom', fill='x')
+
     def run_socket_server(self):
         HOST = ''  # 监听所有接口
-        PORT = 80  # 使用一个非特权端口
+        PORT = 80  # 使用一个非特权端口（避免权限问题）
 
         try:
             self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -320,13 +338,21 @@ class App:
         self.text_area.config(state='disabled')
 
     def send_message(self, event=None):
-        message = self.entry.get().strip()
+        message = self.entry.get()
         if message:
-            self.message_queue.put(message)
-            self.process_message_queue()
+            if self.conn:
+                try:
+                    self.conn.sendall((message + '\n').encode())
+                    self.display_message("Sent to Arduino: " + message)
+                    self.entry.delete(0, 'end')  # 发送后清空输入框
+                except Exception as e:
+                    self.display_message("Error sending message: " + str(e))
+                    self.update_status("Disconnected", "red")
+                    self.conn = None
+            else:
+                self.display_message("Not connected to Arduino")
         else:
-            self.display_message("Input is empty, no data sent")
-        self.entry.delete(0, 'end')
+            self.display_message("No message to send")
 
     def update_status(self, status_text, color):
         # 在主线程中更新 GUI
@@ -358,8 +384,9 @@ class App:
             message = self.message_queue.get()
             if self.conn:
                 try:
+                    # 发送独热码字符串到Arduino
                     self.conn.sendall((message + '\n').encode())
-                    self.display_message(f"Sent to Arduino: {message}")
+                    self.display_message("Sent to Arduino: " + message)
                 except Exception as e:
                     self.display_message(f"Error sending message: {e}")
                     self.update_status("Disconnected", "red")
@@ -376,56 +403,42 @@ class App:
         # 不需要立即发送下一个消息，process_message_queue 会处理
 
     # 键盘事件处理程序
-    def on_key_press_w(self, event):
-        if self.master.focus_get() != self.entry and not self.is_paused:
-            if 'w' not in self.keys_pressed:
-                self.keys_pressed.add('w')
-                self.up_label.config(image=self.green_up_img)
-                self.message_queue.put('w')
-                self.process_message_queue()
+    def on_key_press(self, event):
+        key = event.keysym.lower()
+        if key in self.key_to_bit and self.master.focus_get() != self.entry and not self.is_paused:
+            if key not in self.keys_pressed:
+                self.keys_pressed.add(key)
+                self.update_direction_labels()
+                # 不在此处发送消息，改为由定时任务发送
 
-    def on_key_release_w(self, event):
-        if self.master.focus_get() != self.entry and not self.is_paused:
-            self.keys_pressed.discard('w')
+    def on_key_release(self, event):
+        key = event.keysym.lower()
+        if key in self.key_to_bit and self.master.focus_get() != self.entry and not self.is_paused:
+            if key in self.keys_pressed:
+                self.keys_pressed.discard(key)
+                self.update_direction_labels()
+                # 不在此处发送消息，改为由定时任务发送
+
+    def update_direction_labels(self):
+        # 更新方向图标的颜色
+        if 'w' in self.keys_pressed:
+            self.up_label.config(image=self.green_up_img)
+        else:
             self.up_label.config(image=self.gray_up_img)
 
-    def on_key_press_s(self, event):
-        if self.master.focus_get() != self.entry and not self.is_paused:
-            if 's' not in self.keys_pressed:
-                self.keys_pressed.add('s')
-                self.down_label.config(image=self.green_down_img)
-                self.message_queue.put('s')
-                self.process_message_queue()
-
-    def on_key_release_s(self, event):
-        if self.master.focus_get() != self.entry and not self.is_paused:
-            self.keys_pressed.discard('s')
-            self.down_label.config(image=self.gray_down_img)
-
-    def on_key_press_a(self, event):
-        if self.master.focus_get() != self.entry and not self.is_paused:
-            if 'a' not in self.keys_pressed:
-                self.keys_pressed.add('a')
-                self.left_label.config(image=self.green_left_img)
-                self.message_queue.put('a')
-                self.process_message_queue()
-
-    def on_key_release_a(self, event):
-        if self.master.focus_get() != self.entry and not self.is_paused:
-            self.keys_pressed.discard('a')
+        if 'a' in self.keys_pressed:
+            self.left_label.config(image=self.green_left_img)
+        else:
             self.left_label.config(image=self.gray_left_img)
 
-    def on_key_press_d(self, event):
-        if self.master.focus_get() != self.entry and not self.is_paused:
-            if 'd' not in self.keys_pressed:
-                self.keys_pressed.add('d')
-                self.right_label.config(image=self.green_right_img)
-                self.message_queue.put('d')
-                self.process_message_queue()
+        if 's' in self.keys_pressed:
+            self.down_label.config(image=self.green_down_img)
+        else:
+            self.down_label.config(image=self.gray_down_img)
 
-    def on_key_release_d(self, event):
-        if self.master.focus_get() != self.entry and not self.is_paused:
-            self.keys_pressed.discard('d')
+        if 'd' in self.keys_pressed:
+            self.right_label.config(image=self.green_right_img)
+        else:
             self.right_label.config(image=self.gray_right_img)
 
     # 空格键事件处理
@@ -434,24 +447,50 @@ class App:
             self.is_paused = not self.is_paused  # 切换状态
             if self.is_paused:
                 self.pause_start_label.config(image=self.pause_img)
-                self.display_message("Paused")
-                self.message_queue.put('pause')  # 发送暂停消息
+                self.display_message("Car Stop")
+                self.message_queue.put('00000000')  # 发送暂停消息，表示停止
             else:
                 self.pause_start_label.config(image=self.start_img)
-                self.display_message("Started")
-                self.message_queue.put('start')  # 发送开始消息
+                self.display_message("Car Running")
+                # 发送当前按键的独热码
+                bitmask = 0
+                for key in self.keys_pressed:
+                    bitmask |= self.key_to_bit[key]
+                bitmask_str = format(bitmask, '08b')
+                self.message_queue.put(bitmask_str)
             self.process_message_queue()
 
     # ToggleSwitch 的回调函数
     def on_toggle_switch(self, is_on):
         if is_on:
-            message = 'start'  # 根据需要调整消息内容
-            self.display_message("Toggle Switch: Started")
+            message = '00000001'  # 自动模式开启时发送00000001
+            self.display_message("Auto Mode On")
+            self.bottom_status_label.config(text="Auto Mode On", bg="green")
         else:
-            message = 'pause'  # 根据需要调整消息内容
-            self.display_message("Toggle Switch: Paused")
+            message = '00000000'  # 自动模式关闭时发送00000000
+            self.display_message("Auto Mode Off")
+            self.bottom_status_label.config(text="Auto Mode Off", bg="red")
         self.message_queue.put(message)
         self.process_message_queue()
+
+    def continuous_send_bitmask(self):
+        if not self.is_paused and not self.toggle_switch.is_on and self.conn:
+            # 计算当前独热码
+            bitmask = 0
+            for key in self.keys_pressed:
+                bitmask |= self.key_to_bit[key]
+            bitmask_str = format(bitmask, '08b')  # 8位二进制字符串
+
+            # 如果没有按下任何键，发送00000000
+            if not self.keys_pressed:
+                bitmask_str = '00000000'
+
+            # 发送独热码
+            self.message_queue.put(bitmask_str)
+            self.display_message("Sent to Arduino: " + bitmask_str)
+            self.last_sent_bitmask = bitmask_str
+
+        self.master.after(100, self.continuous_send_bitmask)
 
 
 if __name__ == "__main__":
