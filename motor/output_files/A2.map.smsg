@@ -1,0 +1,2 @@
+Info (10281): Verilog HDL Declaration information at uart_tx.sv(17): object "parity_bit" differs only in case from object "PARITY_BIT" in the same scope File: D:/2402/MTRX3700/A2/uart_tx.sv Line: 17
+Warning (10273): Verilog HDL warning at top_level_tb.sv(28): extended using "x" or "z" File: D:/2402/MTRX3700/A2/top_level_tb.sv Line: 28
