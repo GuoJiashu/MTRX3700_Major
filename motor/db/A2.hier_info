@@ -1,4 +1,33 @@
-|uart_comm
+|top_level
+CLOCK_50 => CLOCK_50.IN1
+reset => ~NO_FANOUT~
+SW[0] => SW[0].IN1
+SW[1] => SW[1].IN1
+SW[2] => SW[2].IN1
+SW[3] => SW[3].IN1
+SW[4] => SW[4].IN1
+SW[5] => SW[5].IN1
+SW[6] => SW[6].IN1
+SW[7] => SW[7].IN1
+SW[8] => SW[8].IN1
+SW[9] => SW[9].IN1
+SW[10] => SW[10].IN1
+SW[11] => SW[11].IN1
+SW[12] => SW[12].IN1
+SW[13] => SW[13].IN1
+SW[14] => SW[14].IN1
+SW[15] => SW[15].IN1
+SW[16] => SW[16].IN1
+SW[17] => SW[17].IN1
+GPIO[0] <> <UNC>
+GPIO[1] <> <UNC>
+GPIO[2] <> <UNC>
+GPIO[3] <> <UNC>
+GPIO[4] <> <UNC>
+GPIO[5] <> uart_comm:uart_inst.uart_out
+
+
+|top_level|uart_comm:uart_inst
 clk => uart_tx:uart_instance.clk
 clk => data_mem[21][0].CLK
 clk => data_mem[21][1].CLK
@@ -69,62 +98,62 @@ clk => index[4].CLK
 SW[0] => Equal0.IN17
 SW[0] => data_mem.OUTPUTSELECT
 SW[0] => data_mem.OUTPUTSELECT
-SW[0] => SW_prev[0].ADATA
 SW[0] => SW_prev[0].DATAIN
+SW[0] => SW_prev[0].ADATA
 SW[1] => Equal0.IN16
 SW[1] => data_mem.OUTPUTSELECT
+SW[1] => SW_prev[1].DATAIN
 SW[1] => SW_prev[1].ADATA
 SW[1] => data_mem.DATAA
-SW[1] => SW_prev[1].DATAIN
 SW[2] => Equal0.IN15
+SW[2] => SW_prev[2].DATAIN
 SW[2] => SW_prev[2].ADATA
 SW[2] => data_mem.DATAA
-SW[2] => SW_prev[2].DATAIN
 SW[3] => Equal0.IN14
-SW[3] => SW_prev[3].ADATA
 SW[3] => SW_prev[3].DATAIN
+SW[3] => SW_prev[3].ADATA
 SW[4] => Equal0.IN13
-SW[4] => SW_prev[4].ADATA
 SW[4] => SW_prev[4].DATAIN
+SW[4] => SW_prev[4].ADATA
 SW[5] => Equal0.IN12
-SW[5] => SW_prev[5].ADATA
 SW[5] => SW_prev[5].DATAIN
+SW[5] => SW_prev[5].ADATA
 SW[6] => Equal0.IN11
-SW[6] => SW_prev[6].ADATA
 SW[6] => SW_prev[6].DATAIN
+SW[6] => SW_prev[6].ADATA
 SW[7] => Equal0.IN10
-SW[7] => SW_prev[7].ADATA
 SW[7] => SW_prev[7].DATAIN
+SW[7] => SW_prev[7].ADATA
 SW[8] => Equal0.IN9
-SW[8] => SW_prev[8].ADATA
 SW[8] => SW_prev[8].DATAIN
+SW[8] => SW_prev[8].ADATA
 SW[9] => Equal0.IN8
-SW[9] => SW_prev[9].ADATA
 SW[9] => SW_prev[9].DATAIN
+SW[9] => SW_prev[9].ADATA
 SW[10] => Equal0.IN7
-SW[10] => SW_prev[10].ADATA
 SW[10] => SW_prev[10].DATAIN
+SW[10] => SW_prev[10].ADATA
 SW[11] => Equal0.IN6
-SW[11] => SW_prev[11].ADATA
 SW[11] => SW_prev[11].DATAIN
+SW[11] => SW_prev[11].ADATA
 SW[12] => Equal0.IN5
-SW[12] => SW_prev[12].ADATA
 SW[12] => SW_prev[12].DATAIN
+SW[12] => SW_prev[12].ADATA
 SW[13] => Equal0.IN4
-SW[13] => SW_prev[13].ADATA
 SW[13] => SW_prev[13].DATAIN
+SW[13] => SW_prev[13].ADATA
 SW[14] => Equal0.IN3
-SW[14] => SW_prev[14].ADATA
 SW[14] => SW_prev[14].DATAIN
+SW[14] => SW_prev[14].ADATA
 SW[15] => Equal0.IN2
-SW[15] => SW_prev[15].ADATA
 SW[15] => SW_prev[15].DATAIN
+SW[15] => SW_prev[15].ADATA
 SW[16] => Equal0.IN1
-SW[16] => SW_prev[16].ADATA
 SW[16] => SW_prev[16].DATAIN
+SW[16] => SW_prev[16].ADATA
 SW[17] => Equal0.IN0
-SW[17] => SW_prev[17].ADATA
 SW[17] => SW_prev[17].DATAIN
+SW[17] => SW_prev[17].ADATA
 rst => uart_tx:uart_instance.rst
 rst => SW_prev[0].ALOAD
 rst => SW_prev[1].ALOAD
@@ -229,7 +258,7 @@ ready <= uart_tx:uart_instance.ready
 uart_out <= uart_tx:uart_instance.uart_out
 
 
-|uart_comm|uart_tx:uart_instance
+|top_level|uart_comm:uart_inst|uart_tx:uart_instance
 clk => parity_bit.CLK
 clk => cycle_count[0].CLK
 clk => cycle_count[1].CLK
