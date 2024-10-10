@@ -1,5 +1,5 @@
 Analysis & Synthesis report for A2
-Tue Oct 08 23:27:25 2024
+Thu Oct 10 13:25:23 2024
 Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
@@ -18,13 +18,14 @@ Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
  10. General Register Statistics
  11. Inverted Register Statistics
  12. Multiplexer Restructuring Statistics (Restructuring Performed)
- 13. Parameter Settings for User Entity Instance: Top-level Entity: |uart_comm
- 14. Parameter Settings for User Entity Instance: uart_tx:uart_instance
- 15. Port Connectivity Checks: "uart_tx:uart_instance"
- 16. Post-Synthesis Netlist Statistics for Top Partition
- 17. Elapsed Time Per Partition
- 18. Analysis & Synthesis Messages
- 19. Analysis & Synthesis Suppressed Messages
+ 13. Parameter Settings for User Entity Instance: uart_comm:uart_inst
+ 14. Parameter Settings for User Entity Instance: uart_comm:uart_inst|uart_tx:uart_instance
+ 15. Port Connectivity Checks: "uart_comm:uart_inst|uart_tx:uart_instance"
+ 16. Port Connectivity Checks: "uart_comm:uart_inst"
+ 17. Post-Synthesis Netlist Statistics for Top Partition
+ 18. Elapsed Time Per Partition
+ 19. Analysis & Synthesis Messages
+ 20. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -51,16 +52,16 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Oct 08 23:27:25 2024       ;
+; Analysis & Synthesis Status        ; Successful - Thu Oct 10 13:25:23 2024       ;
 ; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; A2                                          ;
-; Top-level Entity Name              ; uart_comm                                   ;
+; Top-level Entity Name              ; top_level                                   ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 304                                         ;
-;     Total combinational functions  ; 303                                         ;
+; Total logic elements               ; 173                                         ;
+;     Total combinational functions  ; 147                                         ;
 ;     Dedicated logic registers      ; 81                                          ;
 ; Total registers                    ; 81                                          ;
-; Total pins                         ; 25                                          ;
+; Total pins                         ; 26                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
@@ -74,7 +75,7 @@ https://fpgasoftware.intel.com/eula.
 ; Option                                                           ; Setting            ; Default Value      ;
 +------------------------------------------------------------------+--------------------+--------------------+
 ; Device                                                           ; EP4CE115F29C7      ;                    ;
-; Top-level entity name                                            ; uart_comm          ; A2                 ;
+; Top-level entity name                                            ; top_level          ; A2                 ;
 ; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
 ; Use smart compilation                                            ; Off                ; Off                ;
 ; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
@@ -167,8 +168,7 @@ https://fpgasoftware.intel.com/eula.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
-;     Processors 3-14        ;   0.0%      ;
+;     Processors 2-14        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -177,104 +177,106 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------+-----------------+------------------------------+----------------------------------+---------+
 ; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path     ; Library ;
 +----------------------------------+-----------------+------------------------------+----------------------------------+---------+
+; top_level.sv                     ; yes             ; User SystemVerilog HDL File  ; D:/2402/MTRX3700/A2/top_level.sv ;         ;
 ; uart_tx.sv                       ; yes             ; User SystemVerilog HDL File  ; D:/2402/MTRX3700/A2/uart_tx.sv   ;         ;
 ; uart_comm.sv                     ; yes             ; User SystemVerilog HDL File  ; D:/2402/MTRX3700/A2/uart_comm.sv ;         ;
 +----------------------------------+-----------------+------------------------------+----------------------------------+---------+
 
 
-+---------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary             ;
-+---------------------------------------------+-----------+
-; Resource                                    ; Usage     ;
-+---------------------------------------------+-----------+
-; Estimated Total logic elements              ; 304       ;
-;                                             ;           ;
-; Total combinational functions               ; 303       ;
-; Logic element usage by number of LUT inputs ;           ;
-;     -- 4 input functions                    ; 186       ;
-;     -- 3 input functions                    ; 47        ;
-;     -- <=2 input functions                  ; 70        ;
-;                                             ;           ;
-; Logic elements by mode                      ;           ;
-;     -- normal mode                          ; 272       ;
-;     -- arithmetic mode                      ; 31        ;
-;                                             ;           ;
-; Total registers                             ; 81        ;
-;     -- Dedicated logic registers            ; 81        ;
-;     -- I/O registers                        ; 0         ;
-;                                             ;           ;
-; I/O pins                                    ; 25        ;
-;                                             ;           ;
-; Embedded Multiplier 9-bit elements          ; 0         ;
-;                                             ;           ;
-; Maximum fan-out node                        ; rst~input ;
-; Maximum fan-out                             ; 118       ;
-; Total fan-out                               ; 1323      ;
-; Average fan-out                             ; 3.05      ;
-+---------------------------------------------+-----------+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimated Total logic elements              ; 173            ;
+;                                             ;                ;
+; Total combinational functions               ; 147            ;
+; Logic element usage by number of LUT inputs ;                ;
+;     -- 4 input functions                    ; 86             ;
+;     -- 3 input functions                    ; 17             ;
+;     -- <=2 input functions                  ; 44             ;
+;                                             ;                ;
+; Logic elements by mode                      ;                ;
+;     -- normal mode                          ; 112            ;
+;     -- arithmetic mode                      ; 35             ;
+;                                             ;                ;
+; Total registers                             ; 81             ;
+;     -- Dedicated logic registers            ; 81             ;
+;     -- I/O registers                        ; 0              ;
+;                                             ;                ;
+; I/O pins                                    ; 26             ;
+;                                             ;                ;
+; Embedded Multiplier 9-bit elements          ; 0              ;
+;                                             ;                ;
+; Maximum fan-out node                        ; CLOCK_50~input ;
+; Maximum fan-out                             ; 81             ;
+; Total fan-out                               ; 699            ;
+; Average fan-out                             ; 2.44           ;
++---------------------------------------------+----------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                   ;
-+----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------+-------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name              ; Entity Name ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------+-------------+--------------+
-; |uart_comm                 ; 303 (195)           ; 81 (36)                   ; 0           ; 0            ; 0       ; 0         ; 25   ; 0            ; |uart_comm                       ; uart_comm   ; work         ;
-;    |uart_tx:uart_instance| ; 108 (108)           ; 45 (45)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |uart_comm|uart_tx:uart_instance ; uart_tx     ; work         ;
-+----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------+-------------+--------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                          ;
++-------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------+-------------+--------------+
+; Compilation Hierarchy Node    ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                  ; Entity Name ; Library Name ;
++-------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------+-------------+--------------+
+; |top_level                    ; 147 (0)             ; 81 (0)                    ; 0           ; 0            ; 0       ; 0         ; 26   ; 0            ; |top_level                                           ; top_level   ; work         ;
+;    |uart_comm:uart_inst|      ; 147 (48)            ; 81 (36)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top_level|uart_comm:uart_inst                       ; uart_comm   ; work         ;
+;       |uart_tx:uart_instance| ; 99 (99)             ; 45 (45)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top_level|uart_comm:uart_inst|uart_tx:uart_instance ; uart_tx     ; work         ;
++-------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+-------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                  ;
-+--------------------------------------------+----------------------------------------+
-; Register name                              ; Reason for Removal                     ;
-+--------------------------------------------+----------------------------------------+
-; data_mem[11][7]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[11][6]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[11][5]                            ; Stuck at VCC due to stuck port data_in ;
-; data_mem[11][4]                            ; Stuck at VCC due to stuck port data_in ;
-; data_mem[11][3]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[11][2]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[11][1]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[13][7]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[13][6]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[13][5]                            ; Stuck at VCC due to stuck port data_in ;
-; data_mem[13][4]                            ; Stuck at VCC due to stuck port data_in ;
-; data_mem[13][3]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[13][1]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[19][7]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[19][6]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[19][5]                            ; Stuck at VCC due to stuck port data_in ;
-; data_mem[19][4]                            ; Stuck at VCC due to stuck port data_in ;
-; data_mem[19][3]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[19][2]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[19][1]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[21][7]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[21][6]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[21][5]                            ; Stuck at VCC due to stuck port data_in ;
-; data_mem[21][4]                            ; Stuck at VCC due to stuck port data_in ;
-; data_mem[21][3]                            ; Stuck at GND due to stuck port data_in ;
-; data_mem[21][1]                            ; Stuck at GND due to stuck port data_in ;
-; uart_tx:uart_instance|current_state[3..31] ; Stuck at GND due to stuck port data_in ;
-; uart_tx:uart_instance|parity_bit           ; Stuck at GND due to stuck port data_in ;
-; data_mem[13][2]                            ; Merged with data_mem[13][0]            ;
-; data_mem[21][0]                            ; Merged with data_mem[13][0]            ;
-; data_mem[21][2]                            ; Merged with data_mem[13][0]            ;
-; data_tx[7]                                 ; Stuck at GND due to stuck port data_in ;
-; uart_tx:uart_instance|data_tx_temp[7]      ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 61     ;                                        ;
-+--------------------------------------------+----------------------------------------+
++------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                               ;
++----------------------------------------------------------------+-------------------------------------------------+
+; Register name                                                  ; Reason for Removal                              ;
++----------------------------------------------------------------+-------------------------------------------------+
+; uart_comm:uart_inst|data_mem[11][7]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[11][6]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[11][5]                            ; Stuck at VCC due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[11][4]                            ; Stuck at VCC due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[11][3]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[11][2]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[11][1]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[13][7]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[13][6]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[13][5]                            ; Stuck at VCC due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[13][4]                            ; Stuck at VCC due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[13][3]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[13][1]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[19][7]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[19][6]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[19][5]                            ; Stuck at VCC due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[19][4]                            ; Stuck at VCC due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[19][3]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[19][2]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[19][1]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[21][7]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[21][6]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[21][5]                            ; Stuck at VCC due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[21][4]                            ; Stuck at VCC due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[21][3]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[21][1]                            ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|uart_tx:uart_instance|current_state[3..31] ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|uart_tx:uart_instance|parity_bit           ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|data_mem[21][2]                            ; Merged with uart_comm:uart_inst|data_mem[13][0] ;
+; uart_comm:uart_inst|data_mem[13][0]                            ; Merged with uart_comm:uart_inst|data_mem[13][2] ;
+; uart_comm:uart_inst|data_mem[13][2]                            ; Merged with uart_comm:uart_inst|data_mem[21][0] ;
+; uart_comm:uart_inst|data_tx[7]                                 ; Stuck at GND due to stuck port data_in          ;
+; uart_comm:uart_inst|uart_tx:uart_instance|data_tx_temp[7]      ; Stuck at GND due to stuck port data_in          ;
+; Total Number of Removed Registers = 61                         ;                                                 ;
++----------------------------------------------------------------+-------------------------------------------------+
 
 
-+-------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                     ;
-+-----------------+---------------------------+---------------------------------------------------+
-; Register name   ; Reason for Removal        ; Registers Removed due to This Register            ;
-+-----------------+---------------------------+---------------------------------------------------+
-; data_mem[11][7] ; Stuck at GND              ; data_tx[7], uart_tx:uart_instance|data_tx_temp[7] ;
-;                 ; due to stuck port data_in ;                                                   ;
-+-----------------+---------------------------+---------------------------------------------------+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                 ;
++-------------------------------------+---------------------------+-----------------------------------------------------------+
+; Register name                       ; Reason for Removal        ; Registers Removed due to This Register                    ;
++-------------------------------------+---------------------------+-----------------------------------------------------------+
+; uart_comm:uart_inst|data_mem[11][7] ; Stuck at GND              ; uart_comm:uart_inst|data_tx[7],                           ;
+;                                     ; due to stuck port data_in ; uart_comm:uart_inst|uart_tx:uart_instance|data_tx_temp[7] ;
++-------------------------------------+---------------------------+-----------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -283,11 +285,11 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
 ; Total registers                              ; 81    ;
-; Number of registers using Synchronous Clear  ; 38    ;
+; Number of registers using Synchronous Clear  ; 5     ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 32    ;
+; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 41    ;
+; Number of registers using Clock Enable       ; 19    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -297,45 +299,44 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------+---------+
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
-; data_mem[13][0]                        ; 7       ;
+; uart_comm:uart_inst|data_mem[21][0]    ; 3       ;
 ; Total number of inverted registers = 1 ;         ;
 +----------------------------------------+---------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                 ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                       ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |uart_comm|uart_tx:uart_instance|data_tx_temp[7] ;
-; 11:1               ; 4 bits    ; 28 LEs        ; 12 LEs               ; 16 LEs                 ; Yes        ; |uart_comm|data_tx[1]                            ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
+; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; Yes        ; |top_level|uart_comm:uart_inst|data_tx[5] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
 
 
-+---------------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: Top-level Entity: |uart_comm ;
-+----------------+-------+--------------------------------------------------+
-; Parameter Name ; Value ; Type                                             ;
-+----------------+-------+--------------------------------------------------+
-; CLKS_PER_BIT   ; 3     ; Signed Integer                                   ;
-+----------------+-------+--------------------------------------------------+
++------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: uart_comm:uart_inst ;
++----------------+-------+-----------------------------------------+
+; Parameter Name ; Value ; Type                                    ;
++----------------+-------+-----------------------------------------+
+; CLKS_PER_BIT   ; 434   ; Signed Integer                          ;
++----------------+-------+-----------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+--------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: uart_tx:uart_instance ;
-+----------------+-------+-------------------------------------------+
-; Parameter Name ; Value ; Type                                      ;
-+----------------+-------+-------------------------------------------+
-; CLKS_PER_BIT   ; 3     ; Signed Integer                            ;
-; BITS_N         ; 8     ; Signed Integer                            ;
-; PARITY_TYPE    ; 0     ; Signed Integer                            ;
-+----------------+-------+-------------------------------------------+
++----------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: uart_comm:uart_inst|uart_tx:uart_instance ;
++----------------+-------+---------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                          ;
++----------------+-------+---------------------------------------------------------------+
+; CLKS_PER_BIT   ; 434   ; Signed Integer                                                ;
+; BITS_N         ; 8     ; Signed Integer                                                ;
+; PARITY_TYPE    ; 0     ; Signed Integer                                                ;
++----------------+-------+---------------------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
 +------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "uart_tx:uart_instance"                                                                      ;
+; Port Connectivity Checks: "uart_comm:uart_inst|uart_tx:uart_instance"                                                  ;
 +--------------+--------+----------+-------------------------------------------------------------------------------------+
 ; Port         ; Type   ; Severity ; Details                                                                             ;
 +--------------+--------+----------+-------------------------------------------------------------------------------------+
@@ -343,28 +344,45 @@ Note: In order to hide this table in the UI and the text report file, please set
 +--------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "uart_comm:uart_inst"                                                                                                                                                                    ;
++-----------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                                                                                                                            ;
++-----------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; rst       ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; rst[-1]   ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
+; neg_l     ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; neg_l[-1] ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
+; neg_r     ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; neg_r[-1] ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
+; valid     ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; valid[-1] ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
+; ready     ; Output ; Info     ; Explicitly unconnected                                                                                                                                                             ;
++-----------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 25                          ;
+; boundary_port         ; 26                          ;
 ; cycloneiii_ff         ; 81                          ;
-;     CLR               ; 2                           ;
-;     ENA               ; 11                          ;
-;     ENA CLR           ; 30                          ;
-;     SCLR              ; 38                          ;
-; cycloneiii_lcell_comb ; 303                         ;
-;     arith             ; 31                          ;
-;         2 data inputs ; 31                          ;
-;     normal            ; 272                         ;
-;         1 data inputs ; 1                           ;
-;         2 data inputs ; 38                          ;
-;         3 data inputs ; 47                          ;
-;         4 data inputs ; 186                         ;
+;     ENA               ; 14                          ;
+;     ENA SCLR          ; 5                           ;
+;     plain             ; 62                          ;
+; cycloneiii_io_obuf    ; 6                           ;
+; cycloneiii_lcell_comb ; 147                         ;
+;     arith             ; 35                          ;
+;         2 data inputs ; 35                          ;
+;     normal            ; 112                         ;
+;         1 data inputs ; 2                           ;
+;         2 data inputs ; 7                           ;
+;         3 data inputs ; 17                          ;
+;         4 data inputs ; 86                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 8.00                        ;
-; Average LUT depth     ; 4.00                        ;
+; Max LUT depth         ; 5.10                        ;
+; Average LUT depth     ; 3.38                        ;
 +-----------------------+-----------------------------+
 
 
@@ -373,7 +391,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:00     ;
 +----------------+--------------+
 
 
@@ -383,7 +401,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-    Info: Processing started: Tue Oct 08 23:27:18 2024
+    Info: Processing started: Thu Oct 10 13:25:17 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off A2 -c A2
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -400,58 +418,50 @@ Info (12021): Found 1 design units, including 1 entities, in source file uart_co
 Info (12021): Found 1 design units, including 1 entities, in source file uart_tx_tb.sv
     Info (12023): Found entity 1: uart_tx_tb File: D:/2402/MTRX3700/A2/uart_tx_tb.sv Line: 1
 Info (12021): Found 0 design units, including 0 entities, in source file save.sv
-Warning (10236): Verilog HDL Implicit Net warning at top_level.sv(14): created implicit net for "clk" File: D:/2402/MTRX3700/A2/top_level.sv Line: 14
-Warning (10236): Verilog HDL Implicit Net warning at top_level.sv(16): created implicit net for "rst" File: D:/2402/MTRX3700/A2/top_level.sv Line: 16
-Warning (10236): Verilog HDL Implicit Net warning at top_level.sv(18): created implicit net for "ready" File: D:/2402/MTRX3700/A2/top_level.sv Line: 18
-Warning (10236): Verilog HDL Implicit Net warning at top_level.sv(19): created implicit net for "uart_out" File: D:/2402/MTRX3700/A2/top_level.sv Line: 19
-Info (12127): Elaborating entity "uart_comm" for the top level hierarchy
+Info (12127): Elaborating entity "top_level" for the top level hierarchy
+Info (12128): Elaborating entity "uart_comm" for hierarchy "uart_comm:uart_inst" File: D:/2402/MTRX3700/A2/top_level.sv Line: 24
 Warning (10036): Verilog HDL or VHDL warning at uart_comm.sv(20): object "baud_trigger" assigned a value but never read File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 20
-Warning (10230): Verilog HDL assignment warning at uart_comm.sv(119): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 119
-Warning (10230): Verilog HDL assignment warning at uart_comm.sv(129): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 129
-Warning (10230): Verilog HDL assignment warning at uart_comm.sv(137): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 137
-Warning (10230): Verilog HDL assignment warning at uart_comm.sv(141): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 141
-Warning (10230): Verilog HDL assignment warning at uart_comm.sv(145): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 145
-Warning (10230): Verilog HDL assignment warning at uart_comm.sv(151): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 151
-Warning (10230): Verilog HDL assignment warning at uart_comm.sv(159): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 159
-Warning (10230): Verilog HDL assignment warning at uart_comm.sv(163): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 163
-Warning (10230): Verilog HDL assignment warning at uart_comm.sv(169): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 169
-Warning (10230): Verilog HDL assignment warning at uart_comm.sv(177): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 177
-Warning (10230): Verilog HDL assignment warning at uart_comm.sv(181): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 181
-Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:uart_instance" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 66
+Warning (10230): Verilog HDL assignment warning at uart_comm.sv(120): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 120
+Warning (10230): Verilog HDL assignment warning at uart_comm.sv(130): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 130
+Warning (10230): Verilog HDL assignment warning at uart_comm.sv(138): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 138
+Warning (10230): Verilog HDL assignment warning at uart_comm.sv(142): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 142
+Warning (10230): Verilog HDL assignment warning at uart_comm.sv(146): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 146
+Warning (10230): Verilog HDL assignment warning at uart_comm.sv(152): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 152
+Warning (10230): Verilog HDL assignment warning at uart_comm.sv(160): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 160
+Warning (10230): Verilog HDL assignment warning at uart_comm.sv(164): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 164
+Warning (10230): Verilog HDL assignment warning at uart_comm.sv(170): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 170
+Warning (10230): Verilog HDL assignment warning at uart_comm.sv(178): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 178
+Warning (10230): Verilog HDL assignment warning at uart_comm.sv(182): truncated value with size 32 to match size of target (5) File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 182
+Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_comm:uart_inst|uart_tx:uart_instance" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 67
 Warning (10230): Verilog HDL assignment warning at uart_tx.sv(21): truncated value with size 32 to match size of target (1) File: D:/2402/MTRX3700/A2/uart_tx.sv Line: 21
 Warning (10230): Verilog HDL assignment warning at uart_tx.sv(68): truncated value with size 32 to match size of target (1) File: D:/2402/MTRX3700/A2/uart_tx.sv Line: 68
 Warning (10270): Verilog HDL Case Statement warning at uart_tx.sv(81): incomplete case statement has no default case item File: D:/2402/MTRX3700/A2/uart_tx.sv Line: 81
-Warning (13004): Presettable and clearable registers converted to equivalent circuits with latches. Registers power-up to an undefined state, and DEVCLRn places the registers in an undefined state.
-    Warning (13310): Register "SW_prev[0]" is converted into an equivalent circuit using register "SW_prev[0]~_emulated" and latch "SW_prev[0]~1" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[1]" is converted into an equivalent circuit using register "SW_prev[1]~_emulated" and latch "SW_prev[1]~5" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[2]" is converted into an equivalent circuit using register "SW_prev[2]~_emulated" and latch "SW_prev[2]~9" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[3]" is converted into an equivalent circuit using register "SW_prev[3]~_emulated" and latch "SW_prev[3]~13" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[4]" is converted into an equivalent circuit using register "SW_prev[4]~_emulated" and latch "SW_prev[4]~17" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[5]" is converted into an equivalent circuit using register "SW_prev[5]~_emulated" and latch "SW_prev[5]~21" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[6]" is converted into an equivalent circuit using register "SW_prev[6]~_emulated" and latch "SW_prev[6]~25" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[7]" is converted into an equivalent circuit using register "SW_prev[7]~_emulated" and latch "SW_prev[7]~29" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[8]" is converted into an equivalent circuit using register "SW_prev[8]~_emulated" and latch "SW_prev[8]~33" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[9]" is converted into an equivalent circuit using register "SW_prev[9]~_emulated" and latch "SW_prev[9]~37" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[10]" is converted into an equivalent circuit using register "SW_prev[10]~_emulated" and latch "SW_prev[10]~41" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[11]" is converted into an equivalent circuit using register "SW_prev[11]~_emulated" and latch "SW_prev[11]~45" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[12]" is converted into an equivalent circuit using register "SW_prev[12]~_emulated" and latch "SW_prev[12]~49" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[13]" is converted into an equivalent circuit using register "SW_prev[13]~_emulated" and latch "SW_prev[13]~53" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[14]" is converted into an equivalent circuit using register "SW_prev[14]~_emulated" and latch "SW_prev[14]~57" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[15]" is converted into an equivalent circuit using register "SW_prev[15]~_emulated" and latch "SW_prev[15]~61" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[16]" is converted into an equivalent circuit using register "SW_prev[16]~_emulated" and latch "SW_prev[16]~65" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
-    Warning (13310): Register "SW_prev[17]" is converted into an equivalent circuit using register "SW_prev[17]~_emulated" and latch "SW_prev[17]~69" File: D:/2402/MTRX3700/A2/uart_comm.sv Line: 80
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13034): The following nodes have both tri-state and non-tri-state drivers
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[5]" and its non-tri-state driver. File: D:/2402/MTRX3700/A2/top_level.sv Line: 6
+Warning (13039): The following bidirectional pins have no drivers
+    Warning (13040): bidirectional pin "GPIO[0]" has no driver File: D:/2402/MTRX3700/A2/top_level.sv Line: 6
+    Warning (13040): bidirectional pin "GPIO[1]" has no driver File: D:/2402/MTRX3700/A2/top_level.sv Line: 6
+    Warning (13040): bidirectional pin "GPIO[2]" has no driver File: D:/2402/MTRX3700/A2/top_level.sv Line: 6
+    Warning (13040): bidirectional pin "GPIO[3]" has no driver File: D:/2402/MTRX3700/A2/top_level.sv Line: 6
+    Warning (13040): bidirectional pin "GPIO[4]" has no driver File: D:/2402/MTRX3700/A2/top_level.sv Line: 6
+Warning (13009): TRI or OPNDRN buffers permanently enabled
+    Warning (13010): Node "GPIO[5]~synth" File: D:/2402/MTRX3700/A2/top_level.sv Line: 6
 Info (286030): Timing-Driven Synthesis is running
 Info (144001): Generated suppressed messages file D:/2402/MTRX3700/A2/output_files/A2.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 331 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 23 input pins
-    Info (21059): Implemented 2 output pins
-    Info (21061): Implemented 306 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 39 warnings
-    Info: Peak virtual memory: 4857 megabytes
-    Info: Processing ended: Tue Oct 08 23:27:25 2024
-    Info: Elapsed time: 00:00:07
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "reset" File: D:/2402/MTRX3700/A2/top_level.sv Line: 3
+Info (21057): Implemented 200 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 20 input pins
+    Info (21059): Implemented 0 output pins
+    Info (21060): Implemented 6 bidirectional pins
+    Info (21061): Implemented 174 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 29 warnings
+    Info: Peak virtual memory: 4836 megabytes
+    Info: Processing ended: Thu Oct 10 13:25:23 2024
+    Info: Elapsed time: 00:00:06
     Info: Total CPU time (on all processors): 00:00:04
 
 

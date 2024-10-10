@@ -2,76 +2,40 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow 1200mV 85C Model Setup 'clk'
-Slack : -5.083
-TNS   : -259.605
+Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
+Slack : -3.095
+TNS   : -144.025
 
-Type  : Slow 1200mV 85C Model Hold 'clk'
-Slack : 0.401
+Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
+Slack : 0.403
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Recovery 'clk'
-Slack : 0.103
-TNS   : 0.000
-
-Type  : Slow 1200mV 85C Model Removal 'clk'
-Slack : -0.177
-TNS   : -5.660
-
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clk'
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
 TNS   : -107.085
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'rst'
-Slack : -3.000
-TNS   : -3.000
+Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -2.702
+TNS   : -125.588
 
-Type  : Slow 1200mV 0C Model Setup 'clk'
-Slack : -4.652
-TNS   : -232.318
-
-Type  : Slow 1200mV 0C Model Hold 'clk'
-Slack : 0.353
+Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
+Slack : 0.355
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Recovery 'clk'
-Slack : 0.160
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Removal 'clk'
-Slack : -0.176
-TNS   : -5.630
-
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clk'
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
 TNS   : -107.085
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'rst'
-Slack : -3.000
-TNS   : -3.000
+Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -1.028
+TNS   : -38.935
 
-Type  : Fast 1200mV 0C Model Setup 'clk'
-Slack : -2.597
-TNS   : -103.912
-
-Type  : Fast 1200mV 0C Model Hold 'clk'
-Slack : 0.180
+Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
+Slack : 0.182
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Recovery 'clk'
-Slack : -0.062
-TNS   : -1.953
-
-Type  : Fast 1200mV 0C Model Removal 'clk'
-Slack : -0.105
-TNS   : -3.349
-
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clk'
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
-TNS   : -88.900
-
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'rst'
-Slack : -3.000
-TNS   : -3.000
+TNS   : -107.672
 
 ------------------------------------------------------------
