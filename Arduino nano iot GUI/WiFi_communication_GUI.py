@@ -107,6 +107,21 @@ class ToggleSwitch(tk.Canvas):
                 self.itemconfig(self.bg, fill=self.bg_color)
             self.itemconfig(self.handle, fill=self.handle_color)
 
+    # 新增 set_state 方法
+    def set_state(self, is_on, call_command=True):
+        if self.is_on == is_on:
+            return  # 状态未改变
+        self.is_on = is_on
+        if self.is_on:
+            target_x = self.width - self.height + 5
+            self.itemconfig(self.bg, fill=self.active_color)
+        else:
+            target_x = 5
+            self.itemconfig(self.bg, fill=self.bg_color)
+        self.animate_handle(target_x)
+        if call_command and self.command:
+            self.command(self.is_on)
+
 
 class App:
     def __init__(self, master):
@@ -186,10 +201,12 @@ class App:
         self.toggle_switch.pack(side='left', padx=5)
 
         # 创建红色和蓝色的 ToggleSwitch
-        self.red_toggle = ToggleSwitch(self.toggle_frame, width=60, height=30, bg_color="red", command=self.on_red_toggle)
+        self.red_toggle = ToggleSwitch(self.toggle_frame, width=60, height=30, bg_color="red",
+                                       active_color="red", command=self.on_red_toggle)
         self.red_toggle.pack(side='left', padx=5)
 
-        self.blue_toggle = ToggleSwitch(self.toggle_frame, width=60, height=30, bg_color="blue", command=self.on_blue_toggle)
+        self.blue_toggle = ToggleSwitch(self.toggle_frame, width=60, height=30, bg_color="blue",
+                                        active_color="blue", command=self.on_blue_toggle)
         self.blue_toggle.pack(side='left', padx=5)
 
         # 初始化时禁用红色和蓝色的开关
@@ -208,7 +225,7 @@ class App:
         self.add_bottom_status_bar()
 
         # 启动持续发送独热码的定时任务
-        self.master.after(1300, self.continuous_send_bitmask)
+        self.master.after(100, self.continuous_send_bitmask)
 
         # 处理窗口关闭事件
         master.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -303,7 +320,7 @@ class App:
 
     def run_socket_server(self):
         HOST = ''  # 监听所有接口
-        PORT = 80  # 使用一个非特权端口（避免权限问题）
+        PORT = 70  # 使用一个非特权端口（避免权限问题）
 
         try:
             self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -480,10 +497,11 @@ class App:
             if self.is_paused:
                 self.pause_start_label.config(image=self.pause_img)
                 self.display_message("Car Stop")
-                self.message_queue.put('00000000')  # 发送暂停消息，表示停止
+                self.message_queue.put('00010000')  # 发送暂停消息，表示停止
             else:
                 self.pause_start_label.config(image=self.start_img)
                 self.display_message("Car Running")
+                self.message_queue.put('00000000')
                 # 发送当前按键的独热码
                 bitmask = 0
                 for key in self.keys_pressed:
@@ -495,7 +513,7 @@ class App:
     # ToggleSwitch 的回调函数
     def on_toggle_switch(self, is_on):
         if is_on:
-            message = '00000001'  # 自动模式开启时发送00000001
+            message = '11111111'  # 自动模式开启时发送00000001
             self.display_message("Auto Mode On")
             self.bottom_status_label.config(text="Auto Mode On", bg="green")
             # 启用红色和蓝色的开关
@@ -508,29 +526,40 @@ class App:
             # 禁用红色和蓝色的开关
             self.red_toggle.set_enabled(False)
             self.blue_toggle.set_enabled(False)
+            # 重置红色和蓝色开关的状态
+            self.red_toggle.set_state(False)
+            self.blue_toggle.set_state(False)
         self.message_queue.put(message)
         self.process_message_queue()
 
     # 红色开关的回调函数
     def on_red_toggle(self, is_on):
         if is_on:
+            if self.blue_toggle.is_on:
+                self.blue_toggle.set_state(False)
             self.display_message("Red Toggle On")
+            self.message_queue.put('10000000')
             # 您可以在此添加发送消息或其他逻辑
         else:
             self.display_message("Red Toggle Off")
+            self.message_queue.put('01000000')
             # 您可以在此添加发送消息或其他逻辑
 
     # 蓝色开关的回调函数
     def on_blue_toggle(self, is_on):
         if is_on:
+            if self.red_toggle.is_on:
+                self.red_toggle.set_state(False)
             self.display_message("Blue Toggle On")
+            self.message_queue.put('00100000')
             # 您可以在此添加发送消息或其他逻辑
         else:
             self.display_message("Blue Toggle Off")
+            self.message_queue.put('00010000')
             # 您可以在此添加发送消息或其他逻辑
 
     def continuous_send_bitmask(self):
-        if not self.is_paused and not self.toggle_switch.is_on:
+        if not self.is_paused and not self.toggle_switch.is_on and self.conn:
             # 计算当前独热码
             bitmask = 0
             for key in self.keys_pressed:
