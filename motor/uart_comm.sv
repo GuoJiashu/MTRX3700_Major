@@ -189,4 +189,3 @@ module uart_comm #(
 		  end
     end
 endmodule
-

@@ -1,7 +1,0 @@
-module arduino_uart_buffer (
-	input clk_50,
-	input clk_arduino,
-	
-	output buffer
-)
-
