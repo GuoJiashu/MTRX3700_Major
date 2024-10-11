@@ -1,0 +1,530 @@
+# Reading pref.tcl
+# do uart_project_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlib uart
+# ** Warning: (vlib-34) Library already exists at "uart".
+# vmap uart uart
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap uart uart 
+# Modifying modelsim.ini
+# vlog -vlog01compat -work uart +incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules {C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:20:33 on Oct 10,2024
+# vlog -reportprogress 300 -vlog01compat -work uart "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules" C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v 
+# -- Compiling module uart_rs232_0
+# 
+# Top level modules:
+# 	uart_rs232_0
+# End time: 19:20:33 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:20:33 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv 
+# -- Compiling module arduino_uart_buffer
+# ** Error (suppressible): C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv(20): (vlog-7061) Variable 'valid' driven in an always_ff block, may not be driven by any other process. See C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv(16).
+# ** Error (suppressible): C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv(21): (vlog-7061) Variable 'valid' driven in an always_ff block, may not be driven by any other process. See C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv(16).
+# End time: 19:20:33 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 2, Warnings: 0
+# ** Error: C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/vlog failed.
+# Error in macro ./uart_project_run_msim_rtl_verilog.do line 11
+# C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/vlog failed.
+#     while executing
+# "vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv}"
+do uart_project_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Modifying modelsim.ini
+# 
+# vlib uart
+# ** Warning: (vlib-34) Library already exists at "uart".
+# vmap uart uart
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap uart uart 
+# Modifying modelsim.ini
+# vlog -vlog01compat -work uart +incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules {C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:21:23 on Oct 10,2024
+# vlog -reportprogress 300 -vlog01compat -work uart "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules" C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v 
+# -- Compiling module uart_rs232_0
+# 
+# Top level modules:
+# 	uart_rs232_0
+# End time: 19:21:23 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:21:23 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv 
+# -- Compiling module arduino_uart_buffer
+# 
+# Top level modules:
+# 	arduino_uart_buffer
+# End time: 19:21:23 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:21:23 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv 
+# -- Compiling module top_level
+# 
+# Top level modules:
+# 	top_level
+# End time: 19:21:23 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:21:23 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv 
+# -- Compiling module arduino_uart_tb
+# 
+# Top level modules:
+# 	arduino_uart_tb
+# End time: 19:21:23 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L uart -voptargs="+acc"  arduino_uart_tb
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L uart -voptargs=""+acc"" arduino_uart_tb 
+# Start time: 19:21:23 on Oct 10,2024
+# Loading sv_std.std
+# Loading work.arduino_uart_tb
+# Loading work.arduino_uart_buffer
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# At time 0ns, buffer = xxxxxxxx, valid = x
+# At time 10ns, buffer = xxxxxxxx, valid = 0
+# At time 30ns, buffer = 00000000, valid = 0
+# At time 210ns, buffer = 00000000, valid = 1
+# At time 78350ns, buffer = 00000000, valid = 0
+# At time 87030ns, buffer = 10101010, valid = 0
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv(54)
+#    Time: 89020 ps  Iteration: 0  Instance: /arduino_uart_tb
+# 1
+# Break in Module arduino_uart_tb at C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv line 54
+do uart_project_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# Error 31: Unable to unlink file "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work/_lib.qdb".
+# Error 133: Unable to remove directory "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work".
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Modifying modelsim.ini
+# 
+# vlib uart
+# ** Warning: (vlib-34) Library already exists at "uart".
+# vmap uart uart
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap uart uart 
+# Modifying modelsim.ini
+# vlog -vlog01compat -work uart +incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules {C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:33:46 on Oct 10,2024
+# vlog -reportprogress 300 -vlog01compat -work uart "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules" C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v 
+# -- Compiling module uart_rs232_0
+# 
+# Top level modules:
+# 	uart_rs232_0
+# End time: 19:33:46 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:33:46 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv 
+# -- Compiling module arduino_uart_buffer
+# 
+# Top level modules:
+# 	arduino_uart_buffer
+# End time: 19:33:46 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:33:47 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv 
+# -- Compiling module top_level
+# 
+# Top level modules:
+# 	top_level
+# End time: 19:33:47 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:33:47 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv 
+# -- Compiling module arduino_uart_tb
+# 
+# Top level modules:
+# 	arduino_uart_tb
+# End time: 19:33:47 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L uart -voptargs="+acc"  arduino_uart_tb
+# End time: 19:33:48 on Oct 10,2024, Elapsed time: 0:12:25
+# Errors: 0, Warnings: 0
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L uart -voptargs=""+acc"" arduino_uart_tb 
+# Start time: 19:33:48 on Oct 10,2024
+# Loading sv_std.std
+# Loading work.arduino_uart_tb
+# Loading work.arduino_uart_buffer
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# At time 0ns, buffer = xxxxxxxx, valid = x
+# At time 10ns, buffer = xxxxxxxx, valid = 0
+# At time 30ns, buffer = 00000000, valid = 0
+# At time 210ns, buffer = 00000000, valid = 1
+# At time 8910ns, buffer = 00000000, valid = 0
+# At time 17590ns, buffer = 00000000, valid = 1
+# At time 26270ns, buffer = 00000000, valid = 0
+# At time 34950ns, buffer = 00000000, valid = 1
+# At time 43630ns, buffer = 00000000, valid = 0
+# At time 52310ns, buffer = 00000000, valid = 1
+# At time 60990ns, buffer = 00000000, valid = 0
+# At time 69670ns, buffer = 00000000, valid = 1
+# At time 78350ns, buffer = 00000000, valid = 0
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv(54)
+#    Time: 89020 ps  Iteration: 0  Instance: /arduino_uart_tb
+# 1
+# Break in Module arduino_uart_tb at C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv line 54
+add wave -position end  sim:/arduino_uart_tb/dut/arduino_command
+add wave -position end  sim:/arduino_uart_tb/dut/arduino_input
+add wave -position end  sim:/arduino_uart_tb/dut/bit_counter
+add wave -position end  sim:/arduino_uart_tb/dut/BITS_N
+add wave -position end  sim:/arduino_uart_tb/dut/clk_50
+add wave -position end  sim:/arduino_uart_tb/dut/clk_counter
+add wave -position end  sim:/arduino_uart_tb/dut/CLKS_PER_BIT
+add wave -position end  sim:/arduino_uart_tb/dut/input_buffer
+add wave -position end  sim:/arduino_uart_tb/dut/ready
+add wave -position end  sim:/arduino_uart_tb/dut/reset
+add wave -position end  sim:/arduino_uart_tb/dut/valid
+add wave -position end  sim:/arduino_uart_tb/dut/valid_q
+add wave -position end  sim:/arduino_uart_tb/dut/valid_triggered
+restart -f
+run -a
+# GetModuleFileName: 找不到指定的模块。
+# 
+# 
+# At time 0ns, buffer = xxxxxxxx, valid = x
+# At time 10ns, buffer = xxxxxxxx, valid = 0
+# At time 30ns, buffer = 00000000, valid = 0
+# At time 210ns, buffer = 00000000, valid = 1
+# At time 8910ns, buffer = 00000000, valid = 0
+# At time 17590ns, buffer = 00000000, valid = 1
+# At time 26270ns, buffer = 00000000, valid = 0
+# At time 34950ns, buffer = 00000000, valid = 1
+# At time 43630ns, buffer = 00000000, valid = 0
+# At time 52310ns, buffer = 00000000, valid = 1
+# At time 60990ns, buffer = 00000000, valid = 0
+# At time 69670ns, buffer = 00000000, valid = 1
+# At time 78350ns, buffer = 00000000, valid = 0
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv(54)
+#    Time: 89020 ps  Iteration: 0  Instance: /arduino_uart_tb
+# 1
+# Break in Module arduino_uart_tb at C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv line 54
+do uart_project_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# Error 31: Unable to unlink file "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work/_lib.qdb".
+# Error 133: Unable to remove directory "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work".
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Modifying modelsim.ini
+# 
+# vlib uart
+# ** Warning: (vlib-34) Library already exists at "uart".
+# vmap uart uart
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap uart uart 
+# Modifying modelsim.ini
+# vlog -vlog01compat -work uart +incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules {C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:39:15 on Oct 10,2024
+# vlog -reportprogress 300 -vlog01compat -work uart "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules" C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v 
+# -- Compiling module uart_rs232_0
+# 
+# Top level modules:
+# 	uart_rs232_0
+# End time: 19:39:15 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:39:15 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv 
+# -- Compiling module arduino_uart_buffer
+# ** Error: (vlog-13069) C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv(23): near "end": syntax error, unexpected end.
+# ** Error: (vlog-13069) C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv(33): near "else": syntax error, unexpected else.
+# ** Error: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv(36): (vlog-13205) Syntax error found in the scope following 'bit_counter'. Is there a missing '::'?
+# End time: 19:39:15 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 3, Warnings: 0
+# ** Error: C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/vlog failed.
+# Error in macro ./uart_project_run_msim_rtl_verilog.do line 11
+# C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/vlog failed.
+#     while executing
+# "vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv}"
+# doVOpenFlatFile(): INTERNAL ERROR: page load failed for file C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work/arduino_uart_buffer/_primary.dbs (0:0 1:1 3 0 0 1198 0x0:0x6707916a)
+do uart_project_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# Error 31: Unable to unlink file "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work/_lib.qdb".
+# Error 133: Unable to remove directory "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work".
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Modifying modelsim.ini
+# 
+# vlib uart
+# ** Warning: (vlib-34) Library already exists at "uart".
+# vmap uart uart
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap uart uart 
+# Modifying modelsim.ini
+# vlog -vlog01compat -work uart +incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules {C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:40:28 on Oct 10,2024
+# vlog -reportprogress 300 -vlog01compat -work uart "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules" C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v 
+# -- Compiling module uart_rs232_0
+# 
+# Top level modules:
+# 	uart_rs232_0
+# End time: 19:40:28 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:40:28 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv 
+# -- Compiling module arduino_uart_buffer
+# 
+# Top level modules:
+# 	arduino_uart_buffer
+# End time: 19:40:28 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:40:28 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv 
+# -- Compiling module top_level
+# 
+# Top level modules:
+# 	top_level
+# End time: 19:40:28 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:40:28 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv 
+# -- Compiling module arduino_uart_tb
+# 
+# Top level modules:
+# 	arduino_uart_tb
+# End time: 19:40:28 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L uart -voptargs="+acc"  arduino_uart_tb
+# End time: 19:40:29 on Oct 10,2024, Elapsed time: 0:06:41
+# Errors: 1, Warnings: 0
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L uart -voptargs=""+acc"" arduino_uart_tb 
+# Start time: 19:40:29 on Oct 10,2024
+# Loading sv_std.std
+# Loading work.arduino_uart_tb
+# Loading work.arduino_uart_buffer
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# At time 0ns, buffer = xxxxxxxx, valid = x
+# At time 10ns, buffer = xxxxxxxx, valid = 0
+# At time 30ns, buffer = 00000000, valid = 0
+# At time 210ns, buffer = 00000000, valid = 1
+# At time 8910ns, buffer = 00000000, valid = 0
+# At time 17590ns, buffer = 00000000, valid = 1
+# At time 26270ns, buffer = 00000000, valid = 0
+# At time 34950ns, buffer = 00000000, valid = 1
+# At time 43630ns, buffer = 00000000, valid = 0
+# At time 52310ns, buffer = 00000000, valid = 1
+# At time 60990ns, buffer = 00000000, valid = 0
+# At time 69670ns, buffer = 00000000, valid = 1
+# At time 78350ns, buffer = 00000000, valid = 0
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv(54)
+#    Time: 89020 ps  Iteration: 0  Instance: /arduino_uart_tb
+# 1
+# Break in Module arduino_uart_tb at C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv line 54
+add wave -position end  sim:/arduino_uart_tb/dut/arduino_command
+add wave -position end  sim:/arduino_uart_tb/dut/arduino_input
+add wave -position end  sim:/arduino_uart_tb/dut/bit_counter
+add wave -position end  sim:/arduino_uart_tb/dut/BITS_N
+add wave -position end  sim:/arduino_uart_tb/dut/clk_50
+add wave -position end  sim:/arduino_uart_tb/dut/clk_counter
+add wave -position end  sim:/arduino_uart_tb/dut/CLKS_PER_BIT
+add wave -position end  sim:/arduino_uart_tb/dut/input_buffer
+add wave -position end  sim:/arduino_uart_tb/dut/ready
+add wave -position end  sim:/arduino_uart_tb/dut/reset
+add wave -position end  sim:/arduino_uart_tb/dut/valid
+add wave -position end  sim:/arduino_uart_tb/dut/valid_q0
+add wave -position end  sim:/arduino_uart_tb/dut/valid_q1
+add wave -position end  sim:/arduino_uart_tb/dut/valid_triggered
+restart -f; run -a
+# At time 0ns, buffer = xxxxxxxx, valid = x
+# At time 10ns, buffer = xxxxxxxx, valid = 0
+# At time 30ns, buffer = 00000000, valid = 0
+# At time 210ns, buffer = 00000000, valid = 1
+# At time 8910ns, buffer = 00000000, valid = 0
+# At time 17590ns, buffer = 00000000, valid = 1
+# At time 26270ns, buffer = 00000000, valid = 0
+# At time 34950ns, buffer = 00000000, valid = 1
+# At time 43630ns, buffer = 00000000, valid = 0
+# At time 52310ns, buffer = 00000000, valid = 1
+# At time 60990ns, buffer = 00000000, valid = 0
+# At time 69670ns, buffer = 00000000, valid = 1
+# At time 78350ns, buffer = 00000000, valid = 0
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv(54)
+#    Time: 89020 ps  Iteration: 0  Instance: /arduino_uart_tb
+# 1
+# Break in Module arduino_uart_tb at C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv line 54
+do uart_project_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# Error 31: Unable to unlink file "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work/_lib.qdb".
+# Error 133: Unable to remove directory "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work".
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Modifying modelsim.ini
+# 
+# vlib uart
+# ** Warning: (vlib-34) Library already exists at "uart".
+# vmap uart uart
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap uart uart 
+# Modifying modelsim.ini
+# vlog -vlog01compat -work uart +incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules {C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:42:39 on Oct 10,2024
+# vlog -reportprogress 300 -vlog01compat -work uart "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules" C:/Users/lykan/MTRX3700_Major/uart_project/uart/synthesis/submodules/uart_rs232_0.v 
+# -- Compiling module uart_rs232_0
+# 
+# Top level modules:
+# 	uart_rs232_0
+# End time: 19:42:39 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:42:39 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv 
+# -- Compiling module arduino_uart_buffer
+# 
+# Top level modules:
+# 	arduino_uart_buffer
+# End time: 19:42:39 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:42:39 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv 
+# -- Compiling module top_level
+# 
+# Top level modules:
+# 	top_level
+# End time: 19:42:39 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:42:39 on Oct 10,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv 
+# -- Compiling module arduino_uart_tb
+# 
+# Top level modules:
+# 	arduino_uart_tb
+# End time: 19:42:39 on Oct 10,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L uart -voptargs="+acc"  arduino_uart_tb
+# End time: 19:42:44 on Oct 10,2024, Elapsed time: 0:02:15
+# Errors: 0, Warnings: 0
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L uart -voptargs=""+acc"" arduino_uart_tb 
+# Start time: 19:42:44 on Oct 10,2024
+# Loading sv_std.std
+# Loading work.arduino_uart_tb
+# Loading work.arduino_uart_buffer
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# At time 0ns, buffer = xxxxxxxx, valid = x
+# At time 10ns, buffer = xxxxxxxx, valid = 0
+# At time 30ns, buffer = 00000000, valid = 0
+# At time 230ns, buffer = 00000000, valid = 1
+# At time 78350ns, buffer = 00000000, valid = 0
+# At time 78390ns, buffer = 10101010, valid = 0
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv(55)
+#    Time: 89020 ps  Iteration: 0  Instance: /arduino_uart_tb
+# 1
+# Break in Module arduino_uart_tb at C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv line 55
+add wave -position end  sim:/arduino_uart_tb/dut/arduino_command
+add wave -position end  sim:/arduino_uart_tb/dut/arduino_input
+add wave -position end  sim:/arduino_uart_tb/dut/bit_counter
+add wave -position end  sim:/arduino_uart_tb/dut/BITS_N
+add wave -position end  sim:/arduino_uart_tb/dut/clk_50
+add wave -position end  sim:/arduino_uart_tb/dut/clk_counter
+add wave -position end  sim:/arduino_uart_tb/dut/CLKS_PER_BIT
+add wave -position end  sim:/arduino_uart_tb/dut/input_buffer
+add wave -position end  sim:/arduino_uart_tb/dut/ready
+add wave -position end  sim:/arduino_uart_tb/dut/reset
+add wave -position end  sim:/arduino_uart_tb/dut/valid
+add wave -position end  sim:/arduino_uart_tb/dut/valid_q0
+add wave -position end  sim:/arduino_uart_tb/dut/valid_q1
+add wave -position end  sim:/arduino_uart_tb/dut/valid_triggered
+restart -f; run -a
+# At time 0ns, buffer = xxxxxxxx, valid = x
+# At time 10ns, buffer = xxxxxxxx, valid = 0
+# At time 30ns, buffer = 00000000, valid = 0
+# At time 230ns, buffer = 00000000, valid = 1
+# At time 78350ns, buffer = 00000000, valid = 0
+# At time 78390ns, buffer = 10101010, valid = 0
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv(55)
+#    Time: 89020 ps  Iteration: 0  Instance: /arduino_uart_tb
+# 1
+# Break in Module arduino_uart_tb at C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_tb.sv line 55
+# End time: 19:45:39 on Oct 10,2024, Elapsed time: 0:02:55
+# Errors: 0, Warnings: 0
