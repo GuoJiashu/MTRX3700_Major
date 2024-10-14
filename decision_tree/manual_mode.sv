@@ -5,7 +5,7 @@ module manual_mode(
     output w, a, s, d, wa, wd, as, ad, stop
 );
 
-typedef enum logic [9:0] { Initialise, Forward, Backward, Left, Right, Left_forward, Right_forward, Left_backward, Right_backward, Stop } state_type;
+typedef enum logic [3:0] { Initialise, Forward, Backward, Left, Right, Left_forward, Right_forward, Left_backward, Right_backward, Stop } state_type;
 state_type current_state = Initialise, next_state;
 
 always_comb begin
