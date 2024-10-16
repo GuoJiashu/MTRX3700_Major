@@ -3,7 +3,7 @@ module uart_comm #(
 )(
     input clk,
 	input rst,
-	input [3:0] move_cmd,		// wasd wa as wd sd stop
+	input [3:0] move_cmd,	   // wasd wa as wd sd stop
 	input [3:0] speed_level,
     input valid,               // 当有数据要发送时置高
     output ready,              // UART准备好发送时置高
@@ -11,9 +11,9 @@ module uart_comm #(
 );
     // 定义待发送的16进制字符
     logic [7:0] data_mem [0:23];  // 24个字符，包含完整的JSON字符串
-    logic [4:0] index=0;            // 发送字符的索引
-    logic [7:0] data_tx=0;          // 当前发送的字符数据
-    logic sending = 0;                // 标志是否正在发送
+    logic [4:0] index=0;          // 发送字符的索引
+    logic [7:0] data_tx=0;        // 当前发送的字符数据
+    logic sending = 0;            // 标志是否正在发送
 	logic baud_trigger = 0;
 	 
 	logic [3:0] SW_prev;         // 保存上一个SW状态

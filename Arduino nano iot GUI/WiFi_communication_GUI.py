@@ -564,16 +564,19 @@ class App:
             bitmask = 0
             for key in self.keys_pressed:
                 bitmask |= self.key_to_bit[key]
-            bitmask_str = format(bitmask, '08b')  # 8位二进制字符串
-
+            
+            # 将bitmask转换为二进制字节
+            bitmask_bytes = bitmask.to_bytes(1, byteorder='big')  # 用1个字节表示8位
+            
             # 如果没有按下任何键，发送00000000
             if not self.keys_pressed:
-                bitmask_str = '00000000'
-
+                bitmask_bytes = (0).to_bytes(1, byteorder='big')  # 发送0表示00000000
+            
             # 发送独热码
-            self.message_queue.put(bitmask_str)
-            self.display_message("Sent to Arduino: " + bitmask_str)
-            self.last_sent_bitmask = bitmask_str
+            self.message_queue.put(bitmask_bytes)
+            self.display_message(f"Sent to Arduino: {bitmask_bytes.hex()}")  # 使用hex显示二进制
+            
+            self.last_sent_bitmask = bitmask_bytes
 
         self.master.after(100, self.continuous_send_bitmask)
 

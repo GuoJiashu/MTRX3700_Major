@@ -14,7 +14,6 @@ module uart_tx #(
 
    logic [BITS_N-1:0] data_tx_temp;
    logic [2:0]        bit_n;
-   logic              parity_bit;
 
    integer cycle_count; 
    //logic baud_trigger;
