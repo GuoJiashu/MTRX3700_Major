@@ -58,7 +58,7 @@ void loop() {
     if (serverData.length() > 0) {
       Serial.println("Received from server: " + serverData);
       
-      uint8_t serverData_8bits = atoi(serverData.c_str());
+      uint8_t serverData_8bits = (uint8_t) atoi(serverData.c_str());
 
       // Send the received data to the other Arduino via Serial1
       Serial1.println(serverData_8bits);
