@@ -41,8 +41,8 @@ module top_level (
     ) uart_inst (
         .clk(CLOCK_50),                               
         .rst(reset),     
-		  .move_cmd(move_cmd),
-		  .speed_level(speed_level),
+		.move_cmd(move_cmd),
+		.speed_level(speed_level),
         .valid(valid),             
         .ready(),             
         .uart_out(GPIO[5])        
