@@ -8,13 +8,12 @@ module uart_tx #(
       input [BITS_N-1:0] data_tx,
       output logic uart_out,
       input valid,            // Handshake protocol: valid (when `data_tx` is valid to be sent onto the UART).
-      output logic c,      // Handshake protocol: ready (when this UART module is ready to send data).
+      output logic ready,      // Handshake protocol: ready (when this UART module is ready to send data).
 		output logic baud_trigger
  );
 
    logic [BITS_N-1:0] data_tx_temp;
    logic [2:0]        bit_n;
-   logic              parity_bit;
 
    integer cycle_count; 
    //logic baud_trigger;
@@ -46,9 +45,9 @@ module uart_tx #(
             IDLE: begin // Idle -- register the data to send (in case it gets corrupted by an external module). Reset counters
                bit_n <= 0;
                cycle_count <= 0;
+					data_tx_temp <= data_tx;
             end
             START_BIT: begin 
-					data_tx_temp <= data_tx;
                cycle_count <= (baud_trigger) ? 0 : cycle_count + 1;
             end
             DATA_BITS: begin // Data transfer -- Count up the bit-index to send.
