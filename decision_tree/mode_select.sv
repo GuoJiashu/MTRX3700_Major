@@ -1,6 +1,6 @@
 module mode_select(
     input  clk,
-    input  arduino_command[7:0],
+    input  [7:0] arduino_command,
     output manual_on,
     output auto_on
 );
