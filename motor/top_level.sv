@@ -28,6 +28,8 @@ module top_level (
 			  move_cmd = 4'b0100;  // 逆时针原地旋转 - a
 		 end else if (d) begin
 			  move_cmd = 4'b0101;  // 顺时针原地旋转 - d
+		 end else if (stop) begin
+			  move_cmd = 4'b1000;  // 停止 - stop
 		 end else begin
 			  move_cmd = 4'b1000;  // 默认停止
 		 end

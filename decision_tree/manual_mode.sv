@@ -224,13 +224,13 @@ always_ff begin
     current_state <= next_state;
 end
 
-assign w = (current_state = Forward);
-assign s = (current_state = Backward);
-assign a = (current_state = Left);
-assign d = (current_state = Right);
-assign wa = (current_state = Left_forward);
-assign wd = (current_state = Right_forward);
-assign as = (current_state = Left_backward);
-assign sd = (current_state = Right_backward);
+assign w = (current_state == Forward);
+assign s = (current_state == Backward);
+assign a = (current_state == Left);
+assign d = (current_state == Right);
+assign wa = (current_state == Left_forward);
+assign wd = (current_state == Right_forward);
+assign as = (current_state == Left_backward);
+assign sd = (current_state == Right_backward);
     
 endmodule

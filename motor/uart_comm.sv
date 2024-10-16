@@ -1,13 +1,10 @@
 module uart_comm #(
-	 parameter CLKS_PER_BIT = 3//(50_000_000/115_200)
+	 parameter CLKS_PER_BIT = 50_000_000/115_200
 )(
     input clk,
-//	 input [17:0] SW,
-	 input rst,
-//	 input neg_l,		// left negative flag
-//	 input neg_r,		// right negative flag
-	 input [3:0] move_cmd,		// wasd wa as wd sd stop
-	 input [3:0] speed_level,
+	input rst,
+	input [3:0] move_cmd,		// wasd wa as wd sd stop
+	input [3:0] speed_level,
     input valid,               // 当有数据要发送时置高
     output ready,              // UART准备好发送时置高
     output uart_out            // UART输出，连接到GPIO[5]
@@ -17,15 +14,15 @@ module uart_comm #(
     logic [4:0] index=0;            // 发送字符的索引
     logic [7:0] data_tx=0;          // 当前发送的字符数据
     logic sending = 0;                // 标志是否正在发送
-	 logic baud_trigger = 0;
+	logic baud_trigger = 0;
 	 
-	 logic [3:0] SW_prev;         // 保存上一个SW状态
+	logic [3:0] SW_prev;         // 保存上一个SW状态
     logic SW_changed;             // 标志SW是否变化
-	 logic [3:0] spd_prev;         // 保存上一个速度状态
+	logic [3:0] spd_prev;         // 保存上一个速度状态
     logic spd_changed;             // 标志速度是否变化
 	 
-	 logic neg_l = 0;
-	 logic neg_r = 0;
+	logic neg_l = 0;
+	logic neg_r = 0;
 
     // Init JSON DATA：{"T":1,"L":0.5,"R":0.5}
     initial begin
@@ -40,7 +37,7 @@ module uart_comm #(
         data_mem[8]  = 8'h4C;  // 'L'
         data_mem[9]  = 8'h22;  // '"'
         data_mem[10] = 8'h3A;  // ':'
-		  // place for negative sign (left)
+		// place for negative sign (left)
         data_mem[11] = 8'h30;  // '0'
         data_mem[12] = 8'h2E;  // '.'
         data_mem[13] = 8'h35;  // '5'
@@ -49,12 +46,12 @@ module uart_comm #(
         data_mem[16] = 8'h52;  // 'R'
         data_mem[17] = 8'h22;  // '"'
         data_mem[18] = 8'h3A;  // ':'
-		  // place for negative sign (right)
+		å// place for negative sign (right)
         data_mem[19] = 8'h30;  // '0'
         data_mem[20] = 8'h2E;  // '.'
         data_mem[21] = 8'h35;  // '5'
         data_mem[22] = 8'h7D;  // '}'
-		  data_mem[23] = 8'h0A;	 // '\n'
+		data_mem[23] = 8'h0A;  // '\n'
     end
 
     // UART module
@@ -69,7 +66,7 @@ module uart_comm #(
         .uart_out(uart_out),                // 连接到GPIO[5]
         .valid(sending),
         .ready(ready),
-		  .baud_trigger(baud_trigger)
+		.baud_trigger(baud_trigger)
     );
 
 	logic ready_trigger;
@@ -80,9 +77,9 @@ module uart_comm #(
             index <= 0;
             sending <= 0;
             data_tx <= 8'h00;
-				ready_trigger <= 0;
-				SW_prev <= move_cmd;        // 初始化SW_prev
-				spd_prev <= speed_level;
+			ready_trigger <= 0;
+			SW_prev <= move_cmd;        // 初始化SW_prev
+			spd_prev <= speed_level;
         end else begin
 				SW_prev <= move_cmd;			// 更新SW_prev
 				spd_prev <= speed_level;
@@ -229,4 +226,3 @@ module uart_comm #(
 		  end
     end
 endmodule
-
