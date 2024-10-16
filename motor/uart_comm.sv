@@ -2,12 +2,12 @@ module uart_comm #(
 	 parameter CLKS_PER_BIT = 3//(50_000_000/115_200)
 )(
     input clk,
-	 input [17:0] SW,
+//	 input [17:0] SW,
 	 input rst,
-	 input neg_l,		// left negative flag
-	 input neg_r,		// right negative flag
-	 // input speed_l,
-	 // input speed_r,
+//	 input neg_l,		// left negative flag
+//	 input neg_r,		// right negative flag
+	 input [3:0] move_cmd,		// wasd wa as wd sd stop
+	 input [3:0] speed_level,
     input valid,               // 当有数据要发送时置高
     output ready,              // UART准备好发送时置高
     output uart_out            // UART输出，连接到GPIO[5]
@@ -18,10 +18,16 @@ module uart_comm #(
     logic [7:0] data_tx=0;          // 当前发送的字符数据
     logic sending = 0;                // 标志是否正在发送
 	 logic baud_trigger = 0;
-	 logic [17:0] SW_prev;         // 保存上一个SW状态
+	 
+	 logic [3:0] SW_prev;         // 保存上一个SW状态
     logic SW_changed;             // 标志SW是否变化
+	 logic [3:0] spd_prev;         // 保存上一个速度状态
+    logic spd_changed;             // 标志速度是否变化
+	 
+	 logic neg_l = 0;
+	 logic neg_r = 0;
 
-    // Init JSON DATA：{"T":1.0,"L":0.5,"R":0.5}
+    // Init JSON DATA：{"T":1,"L":0.5,"R":0.5}
     initial begin
         data_mem[0]  = 8'h7B;  // '{'
         data_mem[1]  = 8'h22;  // '"'
@@ -75,43 +81,77 @@ module uart_comm #(
             sending <= 0;
             data_tx <= 8'h00;
 				ready_trigger <= 0;
-				SW_prev <= SW;        // 初始化SW_prev
+				SW_prev <= move_cmd;        // 初始化SW_prev
+				spd_prev <= speed_level;
         end else begin
-				SW_prev <= SW;
-				// 检测SW变化
-				if (SW != SW_prev) begin
+				SW_prev <= move_cmd;			// 更新SW_prev
+				spd_prev <= speed_level;
+				// 检测move_cmd变化
+				if (move_cmd != SW_prev) begin
 					SW_changed <= 1;
-					//SW_prev <= SW;    // 更新SW_prev
 				end else begin
 					SW_changed <= 0;
 				end
 			
-				ready_trigger <= ready;  // 保存之前的 ready 状态
-				// Preprocess (change speed)
-				if (SW[0] == 1) begin		// forward / backward
-					data_mem[11] <= 8'h31;  // 1.0
-					data_mem[13] <= 8'h30;
-		         data_mem[19] <= 8'h31;  // 1.0
-					data_mem[21] <= 8'h30;  
-				end else if (SW[1] == 1) begin	// turn left
-					data_mem[11] <= 8'h31;  // 1.0
-					data_mem[13] <= 8'h30;
-		         data_mem[19] <= 8'h30;  // 0.0
-					data_mem[21] <= 8'h30; 
-				end else if (SW[2] == 1) begin	// turn right
-					data_mem[11] <= 8'h30;  // 0.0
-					data_mem[13] <= 8'h30;
-		         data_mem[19] <= 8'h31;  // 1.0
-					data_mem[21] <= 8'h30; 
-				end else begin							// stop
-					data_mem[11] <= 8'h30;  // 0.0
-					data_mem[13] <= 8'h30;
-		         data_mem[19] <= 8'h30;  // 0.0
-					data_mem[21] <= 8'h30; 
+				if (speed_level != spd_prev) begin
+					spd_changed <= 1;
+				end else begin
+					spd_changed <= 0;
 				end
+			
+				ready_trigger <= ready;  // 保存之前的 ready 状态
 				
+				// 设置速度和负号
+				if (move_cmd == 4'b0000) begin 					// 前进 - 0 - w
+					neg_l <= 0;
+					neg_r <= 0;
+					data_mem[13] <= 8'h30 + speed_level;
+					data_mem[21] <= 8'h30 + speed_level;
+				end else if (move_cmd == 4'b0001) begin		// 左转 - 1 - wa
+					neg_l <= 0;
+					neg_r <= 0;
+					data_mem[13] <= 8'h30;		// 左轮不动
+					data_mem[21] <= 8'h30 + speed_level;
+				end else if (move_cmd == 4'b0010) begin		// 右转 - 2 - wd
+					neg_l <= 0;
+					neg_r <= 0;
+					data_mem[13] <= 8'h30 + speed_level;		
+					data_mem[21] <= 8'h30; 		// 右轮不动
+				end else if (move_cmd == 4'b0011) begin		// 倒退 - 3 - s
+					neg_l <= 1;
+					neg_r <= 1;
+					data_mem[13] <= 8'h30 + speed_level;		
+					data_mem[21] <= 8'h30 + speed_level; 		
+				end else if (move_cmd == 4'b0100) begin		// 逆时针原地旋转 - 4 - a
+					neg_l <= 1;
+					neg_r <= 0;
+					data_mem[13] <= 8'h30 + speed_level;		
+					data_mem[21] <= 8'h30 + speed_level; 		
+				end else if (move_cmd == 4'b0101) begin		// 顺时针原地旋转 - 5 - d
+					neg_l <= 0;
+					neg_r <= 1;
+					data_mem[13] <= 8'h30 + speed_level;		
+					data_mem[21] <= 8'h30 + speed_level; 		
+				end else if (move_cmd == 4'b0110) begin		// 倒退左转 - 6 - as
+					neg_l <= 0;
+					neg_r <= 1;
+					data_mem[13] <= 8'h30;		// 左轮不动
+					data_mem[21] <= 8'h30 + speed_level;
+				end else if (move_cmd == 4'b0111) begin		// 倒退右转 - 7 - sd
+					neg_l <= 1;
+					neg_r <= 0;
+					data_mem[13] <= 8'h30 + speed_level;		
+					data_mem[21] <= 8'h30; 		// 右轮不动
+				end else begin											// default - 停止
+					neg_l <= 0;
+					neg_r <= 0;
+					data_mem[13] <= 8'h30;		
+					data_mem[21] <= 8'h30; 		
+				end 
+
+		
 				// 当检测到SW变化时，重新开始发送
-				if (SW_changed || (valid && ready && !ready_trigger)) begin  
+				if (SW_changed || spd_changed || (valid && ready && !ready_trigger)) begin  
 					if (!neg_l && !neg_r) begin 							// Normal forward
 					// 开始发送数据
 						if (index < 24) begin
@@ -189,3 +229,4 @@ module uart_comm #(
 		  end
     end
 endmodule
+

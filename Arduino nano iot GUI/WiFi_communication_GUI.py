@@ -497,30 +497,30 @@ class App:
             if self.is_paused:
                 self.pause_start_label.config(image=self.pause_img)
                 self.display_message("Car Stop")
-                self.message_queue.put('000010000')  # 发送暂停消息，表示停止
+                self.message_queue.put('00010000')  # 发送暂停消息，表示停止
             else:
                 self.pause_start_label.config(image=self.start_img)
                 self.display_message("Car Running")
-                self.message_queue.put('000000000')
+                self.message_queue.put('00000000')
                 # 发送当前按键的独热码
                 bitmask = 0
                 for key in self.keys_pressed:
                     bitmask |= self.key_to_bit[key]
-                bitmask_str = format(bitmask, '09b')
+                bitmask_str = format(bitmask, '08b')
                 self.message_queue.put(bitmask_str)
             self.process_message_queue()
 
     # ToggleSwitch 的回调函数
     def on_toggle_switch(self, is_on):
         if is_on:
-            message = '011111111'  # 自动模式开启时发送00000001
+            message = '11111111'  # 自动模式开启时发送00000001
             self.display_message("Auto Mode On")
             self.bottom_status_label.config(text="Auto Mode On", bg="green")
             # 启用红色和蓝色的开关
             self.red_toggle.set_enabled(True)
             self.blue_toggle.set_enabled(True)
         else:
-            message = '000000000'  # 自动模式关闭时发送00000000
+            message = '00000000'  # 自动模式关闭时发送00000000
             self.display_message("Auto Mode Off")
             self.bottom_status_label.config(text="Auto Mode Off", bg="red")
             # 禁用红色和蓝色的开关
@@ -538,11 +538,11 @@ class App:
             if self.blue_toggle.is_on:
                 self.blue_toggle.set_state(False)
             self.display_message("Red Toggle On")
-            self.message_queue.put('010000000')
+            self.message_queue.put('10000000')
             # 您可以在此添加发送消息或其他逻辑
         else:
             self.display_message("Red Toggle Off")
-            self.message_queue.put('001000000')
+            self.message_queue.put('01000000')
             # 您可以在此添加发送消息或其他逻辑
 
     # 蓝色开关的回调函数
@@ -551,11 +551,11 @@ class App:
             if self.red_toggle.is_on:
                 self.red_toggle.set_state(False)
             self.display_message("Blue Toggle On")
-            self.message_queue.put('000100000')
+            self.message_queue.put('00100000')
             # 您可以在此添加发送消息或其他逻辑
         else:
             self.display_message("Blue Toggle Off")
-            self.message_queue.put('000010000')
+            self.message_queue.put('00010000')
             # 您可以在此添加发送消息或其他逻辑
 
     def continuous_send_bitmask(self):
@@ -564,11 +564,11 @@ class App:
             bitmask = 0
             for key in self.keys_pressed:
                 bitmask |= self.key_to_bit[key]
-            bitmask_str = format(bitmask, '09b')  # 8位二进制字符串
+            bitmask_str = format(bitmask, '08b')  # 8位二进制字符串
 
             # 如果没有按下任何键，发送00000000
             if not self.keys_pressed:
-                bitmask_str = '000000000'
+                bitmask_str = '00000000'
 
             # 发送独热码
             self.message_queue.put(bitmask_str)

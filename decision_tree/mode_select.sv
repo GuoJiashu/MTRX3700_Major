@@ -5,7 +5,7 @@ module mode_select(
     output auto_on
 );
 
-typedef enum logic [2:0] { Initialise, Manual, Auto } state_type;
+typedef enum logic [1:0] { Initialise, Manual, Auto } state_type;
 state_type current_state = Initialise, next_state;
 
 always_comb begin
