@@ -62,9 +62,9 @@ end
 
 uart_comm #(
     .CLKS_PER_BIT(50_000_000/115_200) 
-    ) uart_inst (
+) uart_u0 (
         .clk(CLOCK_50),                               
-        .rst(reset),     
+        .rst(~KEY[0]),     
 		.move_cmd(move_cmd),
 		.speed_level(speed_level),
         .valid(valid),             
