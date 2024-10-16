@@ -1,0 +1,115 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim
+varduino_uart_buffer
+Z1 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
+Z2 !s110 1728641008
+!i10b 1
+!s100 i9Ng;RPakofL>ElV8J4lf1
+Z3 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IiCcEGC9`2B>>dEC6f=>l90
+Z4 VDg1SIo80bB@j0V0VzS_@n1
+S1
+R0
+w1728637241
+8C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv
+FC:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv
+!i122 2
+L0 1 68
+Z5 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z6 !s108 1728641008.000000
+!s107 C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/lykan/MTRX3700_Major/uart_project|C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv|
+!i113 1
+Z7 o-sv -work work
+Z8 !s92 -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project
+Z9 tCvgOpt 0
+vtb_top_level
+R1
+R2
+!i10b 1
+!s100 5?hTIdTOQ^;_I2>azB^@Y1
+R3
+I0HOMNJ:W3jP_3eBz5ZNdh0
+R4
+S1
+R0
+w1728641003
+8C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv
+FC:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv
+!i122 3
+L0 3 98
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/lykan/MTRX3700_Major/uart_project|C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv|
+!i113 1
+R7
+R8
+R9
+vtop_level
+R1
+R2
+!i10b 1
+!s100 [5dZA8LR?oHnz18ULDi5=0
+R3
+I`Fm5nh_Z7ShPWSJA5aKIW0
+R4
+S1
+R0
+w1728640670
+8C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv
+FC:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv
+!i122 1
+L0 1 36
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/lykan/MTRX3700_Major/uart_project|C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv|
+!i113 1
+R7
+R8
+R9
+vuart_tx
+R1
+R2
+!i10b 1
+!s100 m4LOODLWUH1fbS<MWegTa3
+R3
+I?RiEQ@FXfNz_fk]BZEGkU0
+R4
+S1
+R0
+w1728636852
+8C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv
+FC:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv
+!i122 0
+L0 1 80
+R5
+r1
+!s85 0
+31
+R6
+!s107 C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/lykan/MTRX3700_Major/uart_project|C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv|
+!i113 1
+R7
+R8
+R9

@@ -1,0 +1,306 @@
+# Reading pref.tcl
+# do uart_project_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 20:58:44 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv 
+# -- Compiling module uart_tx
+# 
+# Top level modules:
+# 	uart_tx
+# End time: 20:58:44 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 20:58:44 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv 
+# -- Compiling module top_level
+# 
+# Top level modules:
+# 	top_level
+# End time: 20:58:44 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 20:58:44 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv 
+# -- Compiling module arduino_uart_buffer
+# 
+# Top level modules:
+# 	arduino_uart_buffer
+# End time: 20:58:44 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 20:58:44 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv 
+# -- Compiling module tb_top_level
+# 
+# Top level modules:
+# 	tb_top_level
+# End time: 20:58:44 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -voptargs="+acc"  tb_top_level
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -voptargs=""+acc"" tb_top_level 
+# Start time: 20:58:44 on Oct 11,2024
+# Loading sv_std.std
+# Loading work.tb_top_level
+# Loading work.top_level
+# Loading work.arduino_uart_buffer
+# Loading work.uart_tx
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# At time 104160000: LEDR = 10100101
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv(77)
+#    Time: 173600 ns  Iteration: 0  Instance: /tb_top_level
+# 1
+# Break in Module tb_top_level at C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv line 77
+add wave -position end  sim:/tb_top_level/uut/u_tx/ready
+add wave -position end  sim:/tb_top_level/uut/u_tx/valid
+add wave -position end  sim:/tb_top_level/uut/u_rx/ready
+add wave -position end  sim:/tb_top_level/uut/u_rx/uart_valid
+restart -f; run -a
+# GetModuleFileName: 找不到指定的模块。
+# 
+# 
+# At time 104160000: LEDR = 10100101
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv(77)
+#    Time: 173600 ns  Iteration: 0  Instance: /tb_top_level
+# 1
+# Break in Module tb_top_level at C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv line 77
+do uart_project_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# Error 31: Unable to unlink file "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work/_lib.qdb".
+# Error 133: Unable to remove directory "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work".
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 21:01:56 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv 
+# -- Compiling module uart_tx
+# 
+# Top level modules:
+# 	uart_tx
+# End time: 21:01:56 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 21:01:56 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv 
+# -- Compiling module top_level
+# 
+# Top level modules:
+# 	top_level
+# End time: 21:01:56 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 21:01:56 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv 
+# -- Compiling module arduino_uart_buffer
+# 
+# Top level modules:
+# 	arduino_uart_buffer
+# End time: 21:01:56 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 21:01:56 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv 
+# -- Compiling module tb_top_level
+# 
+# Top level modules:
+# 	tb_top_level
+# End time: 21:01:56 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -voptargs="+acc"  tb_top_level
+# End time: 21:01:59 on Oct 11,2024, Elapsed time: 0:03:15
+# Errors: 0, Warnings: 0
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -voptargs=""+acc"" tb_top_level 
+# Start time: 21:01:59 on Oct 11,2024
+# Loading sv_std.std
+# Loading work.tb_top_level
+# Loading work.top_level
+# Loading work.arduino_uart_buffer
+# Loading work.uart_tx
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# At time 182280000: LEDR = 10100101
+# At time 243270000: LEDR = 11111111
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv(97)
+#    Time: 251720 ns  Iteration: 0  Instance: /tb_top_level
+# 1
+# Break in Module tb_top_level at C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv line 97
+do uart_project_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# Error 31: Unable to unlink file "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work/_lib1_0.qpg".
+# Error 31: Unable to unlink file "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work/_lib1_0.qtl".
+# Error 133: Unable to remove directory "C:/Users/lykan/MTRX3700_Major/uart_project/simulation/modelsim/rtl_work".
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 21:03:28 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv 
+# -- Compiling module uart_tx
+# 
+# Top level modules:
+# 	uart_tx
+# End time: 21:03:28 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 21:03:28 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv 
+# -- Compiling module top_level
+# 
+# Top level modules:
+# 	top_level
+# End time: 21:03:28 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 21:03:28 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv 
+# -- Compiling module arduino_uart_buffer
+# 
+# Top level modules:
+# 	arduino_uart_buffer
+# End time: 21:03:28 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -sv -work work +incdir+C:/Users/lykan/MTRX3700_Major/uart_project {C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 21:03:28 on Oct 11,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/lykan/MTRX3700_Major/uart_project" C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv 
+# -- Compiling module tb_top_level
+# 
+# Top level modules:
+# 	tb_top_level
+# End time: 21:03:28 on Oct 11,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -voptargs="+acc"  tb_top_level
+# End time: 21:03:32 on Oct 11,2024, Elapsed time: 0:01:33
+# Errors: 0, Warnings: 0
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -voptargs=""+acc"" tb_top_level 
+# Start time: 21:03:32 on Oct 11,2024
+# Loading sv_std.std
+# Loading work.tb_top_level
+# Loading work.top_level
+# Loading work.arduino_uart_buffer
+# Loading work.uart_tx
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# At time 182280000: LEDR = 10100101
+# At time 243270000: LEDR = 11111111
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv(97)
+#    Time: 251720 ns  Iteration: 0  Instance: /tb_top_level
+# 1
+# Break in Module tb_top_level at C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv line 97
+# WARNING: No extended dataflow license exists
+add wave -position end  sim:/tb_top_level/uut/u_tx/data_tx_temp
+add wave -position end  sim:/tb_top_level/uut/u_tx/data_tx
+add wave -position end  sim:/tb_top_level/uut/buffer
+restart -f;run -a
+# GetModuleFileName: 找不到指定的模块。
+# 
+# 
+# At time 182280000: LEDR = 10100101
+# At time 243270000: LEDR = 11111111
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv(97)
+#    Time: 251720 ns  Iteration: 0  Instance: /tb_top_level
+# 1
+# Break in Module tb_top_level at C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv line 97
+add wave -position end  sim:/tb_top_level/uut/u_tx/valid
+add wave -position end  sim:/tb_top_level/uut/u_tx/ready
+add wave -position end  sim:/tb_top_level/uut/u_rx/uart_valid
+add wave -position end  sim:/tb_top_level/uut/u_rx/valid
+add wave -position end  sim:/tb_top_level/uut/u_rx/ready
+restart -f;run -a
+# GetModuleFileName: 找不到指定的模块。
+# 
+# 
+# At time 182280000: LEDR = 10100101
+# At time 243270000: LEDR = 11111111
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv(97)
+#    Time: 251720 ns  Iteration: 0  Instance: /tb_top_level
+# 1
+# Break in Module tb_top_level at C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv line 97
+add wave -position end  sim:/tb_top_level/uut/u_rx/arduino_command
+restart -f;run -a
+# GetModuleFileName: 找不到指定的模块。
+# 
+# 
+# At time 182280000: LEDR = 10100101
+# At time 243270000: LEDR = 11111111
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv(97)
+#    Time: 251720 ns  Iteration: 0  Instance: /tb_top_level
+# 1
+# Break in Module tb_top_level at C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv line 97
+add wave -position end  sim:/tb_top_level/uut/u_rx/arduino_command
+add wave -position end  sim:/tb_top_level/uut/u_rx/arduino_input
+add wave -position end  sim:/tb_top_level/uut/u_rx/bit_counter
+add wave -position end  sim:/tb_top_level/uut/u_rx/BITS_N
+add wave -position end  sim:/tb_top_level/uut/u_rx/clk_50
+add wave -position end  sim:/tb_top_level/uut/u_rx/clk_counter
+add wave -position end  sim:/tb_top_level/uut/u_rx/CLKS_PER_BIT
+add wave -position end  sim:/tb_top_level/uut/u_rx/input_buffer
+add wave -position end  sim:/tb_top_level/uut/u_rx/ready
+add wave -position end  sim:/tb_top_level/uut/u_rx/reset
+add wave -position end  sim:/tb_top_level/uut/u_rx/uart_valid
+add wave -position end  sim:/tb_top_level/uut/u_rx/valid
+restart -f; run -a
+# GetModuleFileName: 找不到指定的模块。
+# 
+# 
+# At time 182280000: LEDR = 10100101
+# At time 243270000: LEDR = 11111111
+# ** Note: $finish    : C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv(97)
+#    Time: 251720 ns  Iteration: 0  Instance: /tb_top_level
+# 1
+# Break in Module tb_top_level at C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv line 97
+# End time: 22:55:51 on Oct 11,2024, Elapsed time: 1:52:19
+# Errors: 0, Warnings: 0

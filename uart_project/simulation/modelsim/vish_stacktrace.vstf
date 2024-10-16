@@ -1,0 +1,19 @@
+# Current time Fri Oct 11 19:39:31 2024
+# ModelSim - Intel FPGA Edition Stack Trace
+# Program = vish
+# Id = "2020.1"
+# Version = "2020.02"
+# Date = "Feb 28 2020"
+# Platform = win32pe
+
+Exception c0000005 has occurred at address 5f20d600. Traceback:
+# 0    0x5f20d600: 'Tcl_AppendLimitedToObj + 0x30'
+# 1    0x5f20d728: 'Tcl_AppendToObj + 0x18'
+# 2    0x5ed502f9: 'Itcl_EvalMemberCode + 0x1f9'
+# 3    0x5ed51441: 'Itcl_ExecMethod + 0x1c1'
+# 4    0x5ed5874d: 'Itcl_EvalArgs + 0x19d'
+# 5    0x5ed53ed9: 'Itcl_HandleInstance + 0x249'
+# 6    0x5f1539f1: 'TclNREvalObjv + 0x3e1'
+StackWalk failed 299
+# End of Stack Trace
+
