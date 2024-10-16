@@ -582,7 +582,7 @@ class App:
 
             self.last_sent_bitmask = bitmask_bytes
 
-        self.master.after(100, self.continuous_send_bitmask)
+        self.master.after(1000, self.continuous_send_bitmask)
 
 
 if __name__ == "__main__":
