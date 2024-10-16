@@ -22,7 +22,7 @@ class ToggleSwitch(tk.Canvas):
         self.command = command
 
         self.is_on = False
-        self.enabled = True  # 新增，表示开关是否可用
+        self.enabled = True  # 表示开关是否可用
         self.handle_radius = (height - 10) / 2
         self.handle_x = 5  # 初始位置
         self.handle_y = height / 2
@@ -433,9 +433,14 @@ class App:
             message = self.message_queue.get()
             if self.conn:
                 try:
-                    # 发送独热码字符串到Arduino
-                    self.conn.sendall((message + '\n').encode())
-                    self.display_message("Sent to Arduino: " + message)
+                    if isinstance(message, bytes):
+                        # 如果 message 是字节类型，直接发送
+                        self.conn.sendall(message)
+                        self.display_message(f"Sent to Arduino: {message.hex()}")
+                    else:
+                        # 如果 message 是字符串类型，先拼接换行符并编码为字节类型
+                        self.conn.sendall((message + '\n').encode())
+                        self.display_message("Sent to Arduino: " + message)
                 except Exception as e:
                     self.display_message(f"Error sending message: {e}")
                     self.update_status("Disconnected", "red")
@@ -513,7 +518,7 @@ class App:
     # ToggleSwitch 的回调函数
     def on_toggle_switch(self, is_on):
         if is_on:
-            message = '11111111'  # 自动模式开启时发送00000001
+            message = '11111111'  # 自动模式开启时发送11111111
             self.display_message("Auto Mode On")
             self.bottom_status_label.config(text="Auto Mode On", bg="green")
             # 启用红色和蓝色的开关
@@ -564,18 +569,17 @@ class App:
             bitmask = 0
             for key in self.keys_pressed:
                 bitmask |= self.key_to_bit[key]
-            
-            # 将bitmask转换为二进制字节
-            bitmask_bytes = bitmask.to_bytes(1, byteorder='big')  # 用1个字节表示8位
-            
-            # 如果没有按下任何键，发送00000000
+
+            # 将 bitmask 转换为字节类型
+            bitmask_bytes = bitmask.to_bytes(1, byteorder='big')  # 用 1 个字节表示 8 位
+
+            # 如果没有按下任何键，发送 00000000
             if not self.keys_pressed:
-                bitmask_bytes = (0).to_bytes(1, byteorder='big')  # 发送0表示00000000
-            
+                bitmask_bytes = (0).to_bytes(1, byteorder='big')  # 发送 0 表示 00000000
+
             # 发送独热码
             self.message_queue.put(bitmask_bytes)
-            self.display_message(f"Sent to Arduino: {bitmask_bytes.hex()}")  # 使用hex显示二进制
-            
+
             self.last_sent_bitmask = bitmask_bytes
 
         self.master.after(100, self.continuous_send_bitmask)
