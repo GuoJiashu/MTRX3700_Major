@@ -1,5 +1,5 @@
 module uart_comm #(
-	 parameter CLKS_PER_BIT = 50_000_000/115_200
+	 parameter CLKS_PER_BIT = (50_000_000/115_200)
 )(
     input clk,
 	input rst,
@@ -99,7 +99,7 @@ module uart_comm #(
 				ready_trigger <= ready;  // 保存之前的 ready 状态
 				
 				// 设置速度和负号
-				if (move_cmd == 4'b0000) begin 					// 前进 - 0 - w
+				if (move_cmd == 4'b0000) begin 				// 前进 - 0 - w
 					neg_l <= 0;
 					neg_r <= 0;
 					data_mem[13] <= 8'h30 + speed_level;

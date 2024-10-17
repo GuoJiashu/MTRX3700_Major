@@ -8,8 +8,8 @@ logic [7:0] arduino_command = 8'b00000000;
 logic manual_on = 0, auto_on = 0;
 logic w = 0, s = 0, a = 0, d = 0, wa = 0, wd = 0, as = 0, ds = 0, stop = 0;
 logic [3:0] speed_level = 4'b0000;
-logic valid = 1;
 logic [3:0] move_cmd = 4'b0000;
+logic rx_valid;
 
 
 mode_select mode_select_u0(
@@ -53,8 +53,6 @@ always_comb begin
 		move_cmd = 4'b0100;  // 逆时针原地旋转 - a
 	end else if (d) begin
 		move_cmd = 4'b0101;  // 顺时针原地旋转 - d
-	end else if (stop) begin
-		move_cmd = 4'b1000;  // 停止 - stop
 	end else begin
 		move_cmd = 4'b1000;  // 默认停止
 	end
@@ -66,9 +64,17 @@ uart_comm #(
         .clk(CLOCK_50),                               
         .rst(~KEY[0]),     
 		.move_cmd(move_cmd),
-		.speed_level(speed_level),
-        .valid(valid),             
+		.speed_level(0),
+        .valid(rx_valid),             
         .ready(),             
         .uart_out(GPIO[5])        
     );
+
+arduino_uart_buffer u_rx(
+	.clk_50(CLOCK_50), 
+	.reset(~KEY[0]), 
+	.arduino_input(GPIO[7]),
+	.arduino_data(arduino_command), 
+	.valid(rx_valid)
+);
 endmodule

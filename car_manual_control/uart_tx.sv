@@ -17,7 +17,6 @@
    logic              parity_bit;
 
    integer cycle_count; 
-   //logic baud_trigger;
    assign baud_trigger = (cycle_count == (CLKS_PER_BIT - 1)) ? 1 : 0;
 
    enum {IDLE, START_BIT, DATA_BITS, PARITY_BIT, STOP_BIT} current_state, next_state;
