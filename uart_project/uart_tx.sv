@@ -7,8 +7,8 @@ module uart_tx #(
       input rst,
       input [BITS_N-1:0] data_tx,
       output logic uart_out,
-      input valid,            // Handshake protocol: valid (when `data_tx` is valid to be sent onto the UART).
-      output logic c,      // Handshake protocol: ready (when this UART module is ready to send data).
+      input valid,             // Handshake, a valid data is ready to be sent
+      output logic ready,      // Handshake, ready to receive new data waiting to be transferred
 		output logic baud_trigger
  );
 
