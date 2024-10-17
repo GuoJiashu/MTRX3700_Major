@@ -1,83 +1,91 @@
 module arduino_uart_tb;
 
-  // Parameters
-  parameter CLKS_PER_BIT = (50_000_000 / 115_200); // Clock cycles per UART bit
-  parameter BITS_N = 8;
+  // Parameters for the UART module
+  parameter CLKS_PER_BIT = (50_000_000 / 115_200);
+  parameter DATA_BITS = 8;
 
   // Inputs
   reg clk_50;
   reg reset;
   reg arduino_input;
-  reg ready;
+  reg ready = 1;
 
   // Outputs
+  wire [DATA_BITS-1:0] arduino_data;
   wire valid;
-  wire [BITS_N-1:0] buffer;
 
-  // Instantiate the DUT (Design Under Test)
-  arduino_uart_buffer #(CLKS_PER_BIT, BITS_N) dut (
+  // Instantiate the UART RX module
+  arduino_uart_buffer #(.CLKS_PER_BIT(CLKS_PER_BIT), .DATA_BITS(DATA_BITS)) uart_rx_inst (
     .clk_50(clk_50),
     .reset(reset),
     .arduino_input(arduino_input),
-    .ready(ready),
+    .arduino_data(arduino_data),
     .valid(valid),
-    .arduino_command(buffer)
+    .ready(ready)
   );
 
   // Clock generation
-  initial begin
-    clk_50 = 0;
-    forever #10 clk_50 = ~clk_50; // 50 MHz clock (period = 20 ns)
-  end
+  always #10 clk_50 = ~clk_50; // 50 MHz clock
 
-  // Test input sequence
-  initial begin
-    // Initialize inputs
-    reset = 1;
-    arduino_input = 1;
-    ready = 0;
-    #100;
-    
-    // Release reset
-    reset = 0;
-    #100;
-
-    // Start UART transmission with 'ready' high
-	ready = 1;
-	#20
-    // Simulate sending a byte (for example, 8'b10101010)
-    send_uart_byte(8'b10101010);
-
-    // Wait for the transmission to complete
-    #2000;
-
-    // End of simulation
-    $finish;
-  end
-
-  // Task to simulate UART transmission of 1 start bit, 8 data bits, and 1 stop bit
-  task send_uart_byte(input [7:0] data);
+  // Task to simulate UART transmission
+  task uart_send_byte;
+    input [7:0] byte_data;
     integer i;
     begin
-      // Send start bit (0)
+      // Start bit (logic low)
       arduino_input = 0;
-      # (CLKS_PER_BIT * 20);
+      #(CLKS_PER_BIT * 20); // Wait for 1 bit period
 
-      // Send data bits (LSB first)
-      for (i = BITS_N-1; i >=0; i = i - 1) begin
-        arduino_input = data[i];
-        # (CLKS_PER_BIT * 20);
+      // Send 8 data bits (LSB first)
+      for (i = 0; i < DATA_BITS; i = i + 1) begin
+        arduino_input = byte_data[i];
+        #(CLKS_PER_BIT * 20); // Wait for 1 bit period
       end
 
-      // Send stop bit (1)
+      // Stop bit (logic high)
       arduino_input = 1;
-      # (CLKS_PER_BIT * 20);
+      #(CLKS_PER_BIT * 20); // Wait for 1 bit period
     end
   endtask
 
-  // Monitor outputs
   initial begin
-    $monitor("At time %0dns, buffer = %b, valid = %b", $time, buffer, valid);
+    // Initialize inputs
+    clk_50 = 0;
+    reset = 1;
+    arduino_input = 1; // Idle state is high
+    ready = 0;
+
+    // Release reset after a few clock cycles
+    #(CLKS_PER_BIT * 2);
+    reset = 0;
+
+    // Test Case 1: Send byte 0x55 (01010101)
+    uart_send_byte(8'h55);
+
+    // Wait for valid signal to go high
+    wait(valid);
+    #20;
+    $display("Received data: 0x%h", arduino_data);
+    if (arduino_data != 8'h55) begin
+      $display("Test failed! Expected 0x55 but got 0x%h", arduino_data);
+    end else begin
+      $display("Test passed!");
+    end
+
+    // Test Case 2: Send byte 0xA3 (10100011)
+    uart_send_byte(8'hA3);
+
+    // Wait for valid signal to go high
+    wait(valid);
+    #20;
+    $display("Received data: 0x%h", arduino_data);
+    if (arduino_data != 8'hA3) begin
+      $display("Test failed! Expected 0xA3 but got 0x%h", arduino_data);
+    end else begin
+      $display("Test passed!");
+    end
+
+    $finish;
   end
 
 endmodule

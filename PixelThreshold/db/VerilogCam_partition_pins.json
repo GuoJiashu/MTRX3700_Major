@@ -1,0 +1,129 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "pixel_out[0]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_out[1]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_out[2]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_out[3]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_out[4]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_out[5]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_out[6]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_out[7]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_out[8]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_out[9]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_out[10]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_out[11]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_signal",
+					"strict" : false
+				},
+				{
+					"name" : "sw[1]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[7]",
+					"strict" : false
+				},
+				{
+					"name" : "sw[0]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[6]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[5]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[11]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[10]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[9]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[8]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[4]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[3]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[1]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[2]",
+					"strict" : false
+				},
+				{
+					"name" : "pixel_in[0]",
+					"strict" : false
+				},
+				{
+					"name" : "sw[2]",
+					"strict" : false
+				},
+				{
+					"name" : "sw[4]",
+					"strict" : false
+				},
+				{
+					"name" : "sw[3]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

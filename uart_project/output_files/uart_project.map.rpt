@@ -1,5 +1,5 @@
 Analysis & Synthesis report for uart_project
-Wed Oct 16 21:05:37 2024
+Thu Oct 17 18:17:51 2024
 Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
@@ -20,9 +20,10 @@ Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
  12. Parameter Settings for User Entity Instance: arduino_uart_buffer:u_rx
  13. Parameter Settings for User Entity Instance: uart_tx:u_tx
  14. Port Connectivity Checks: "uart_tx:u_tx"
- 15. Post-Synthesis Netlist Statistics for Top Partition
- 16. Elapsed Time Per Partition
- 17. Analysis & Synthesis Messages
+ 15. Port Connectivity Checks: "arduino_uart_buffer:u_rx"
+ 16. Post-Synthesis Netlist Statistics for Top Partition
+ 17. Elapsed Time Per Partition
+ 18. Analysis & Synthesis Messages
 
 
 
@@ -49,15 +50,15 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Oct 16 21:05:37 2024       ;
+; Analysis & Synthesis Status        ; Successful - Thu Oct 17 18:17:51 2024       ;
 ; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; uart_project                                ;
 ; Top-level Entity Name              ; top_level                                   ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 149                                         ;
-;     Total combinational functions  ; 147                                         ;
-;     Dedicated logic registers      ; 96                                          ;
-; Total registers                    ; 96                                          ;
+; Total logic elements               ; 160                                         ;
+;     Total combinational functions  ; 158                                         ;
+;     Dedicated logic registers      ; 105                                         ;
+; Total registers                    ; 105                                         ;
 ; Total pins                         ; 29                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
@@ -185,20 +186,20 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 149            ;
+; Estimated Total logic elements              ; 160            ;
 ;                                             ;                ;
-; Total combinational functions               ; 147            ;
+; Total combinational functions               ; 158            ;
 ; Logic element usage by number of LUT inputs ;                ;
 ;     -- 4 input functions                    ; 51             ;
-;     -- 3 input functions                    ; 20             ;
-;     -- <=2 input functions                  ; 76             ;
+;     -- 3 input functions                    ; 23             ;
+;     -- <=2 input functions                  ; 84             ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 85             ;
+;     -- normal mode                          ; 96             ;
 ;     -- arithmetic mode                      ; 62             ;
 ;                                             ;                ;
-; Total registers                             ; 96             ;
-;     -- Dedicated logic registers            ; 96             ;
+; Total registers                             ; 105            ;
+;     -- Dedicated logic registers            ; 105            ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 29             ;
@@ -206,9 +207,9 @@ https://fpgasoftware.intel.com/eula.
 ; Embedded Multiplier 9-bit elements          ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 96             ;
-; Total fan-out                               ; 767            ;
-; Average fan-out                             ; 2.50           ;
+; Maximum fan-out                             ; 105            ;
+; Total fan-out                               ; 821            ;
+; Average fan-out                             ; 2.51           ;
 +---------------------------------------------+----------------+
 
 
@@ -217,8 +218,8 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node    ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                 ; Entity Name         ; Library Name ;
 +-------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------+---------------------+--------------+
-; |top_level                    ; 147 (0)             ; 96 (0)                    ; 0           ; 0            ; 0       ; 0         ; 29   ; 0            ; |top_level                          ; top_level           ; work         ;
-;    |arduino_uart_buffer:u_rx| ; 76 (76)             ; 51 (51)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top_level|arduino_uart_buffer:u_rx ; arduino_uart_buffer ; work         ;
+; |top_level                    ; 158 (0)             ; 105 (0)                   ; 0           ; 0            ; 0       ; 0         ; 29   ; 0            ; |top_level                          ; top_level           ; work         ;
+;    |arduino_uart_buffer:u_rx| ; 87 (87)             ; 60 (60)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top_level|arduino_uart_buffer:u_rx ; arduino_uart_buffer ; work         ;
 ;    |uart_tx:u_tx|             ; 71 (71)             ; 45 (45)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top_level|uart_tx:u_tx             ; uart_tx             ; work         ;
 +-------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
@@ -257,36 +258,37 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 96    ;
-; Number of registers using Synchronous Clear  ; 74    ;
+; Total registers                              ; 105   ;
+; Number of registers using Synchronous Clear  ; 76    ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 43    ;
+; Number of registers using Clock Enable       ; 52    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                 ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                       ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
-; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |top_level|arduino_uart_buffer:u_rx|bit_index[0] ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |top_level|uart_tx:u_tx|data_tx_temp[4]          ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |top_level|arduino_uart_buffer:u_rx|count[0]     ;
-; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |top_level|uart_tx:u_tx|cycle_count[22]          ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                   ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                         ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |top_level|arduino_uart_buffer:u_rx|bit_index[0]   ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |top_level|uart_tx:u_tx|data_tx_temp[7]            ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |top_level|arduino_uart_buffer:u_rx|buffer_prev[7] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |top_level|arduino_uart_buffer:u_rx|clk_counts[5]  ;
+; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |top_level|uart_tx:u_tx|cycle_count[22]            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
 
 
 +-----------------------------------------------------------------------+
 ; Parameter Settings for User Entity Instance: arduino_uart_buffer:u_rx ;
-+-----------------+-------+---------------------------------------------+
-; Parameter Name  ; Value ; Type                                        ;
-+-----------------+-------+---------------------------------------------+
-; clk_50S_PER_BIT ; 434   ; Signed Integer                              ;
-; DATA_BITS       ; 8     ; Signed Integer                              ;
-+-----------------+-------+---------------------------------------------+
++----------------+-------+----------------------------------------------+
+; Parameter Name ; Value ; Type                                         ;
++----------------+-------+----------------------------------------------+
+; CLKS_PER_BIT   ; 434   ; Signed Integer                               ;
+; DATA_BITS      ; 8     ; Signed Integer                               ;
++----------------+-------+----------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -302,13 +304,23 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+-----------------------------------------------------------+
-; Port Connectivity Checks: "uart_tx:u_tx"                  ;
-+--------------+--------+----------+------------------------+
-; Port         ; Type   ; Severity ; Details                ;
-+--------------+--------+----------+------------------------+
-; baud_trigger ; Output ; Info     ; Explicitly unconnected ;
-+--------------+--------+----------+------------------------+
++------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "uart_tx:u_tx"                                                                               ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port         ; Type   ; Severity ; Details                                                                             ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; ready        ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; baud_trigger ; Output ; Info     ; Explicitly unconnected                                                              ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "arduino_uart_buffer:u_rx"                                                                                                                    ;
++-------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port  ; Type  ; Severity ; Details                                                                                                                                      ;
++-------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; ready ; Input ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
++-------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -317,24 +329,24 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 29                          ;
-; cycloneiii_ff         ; 96                          ;
-;     ENA               ; 9                           ;
-;     ENA SCLR          ; 34                          ;
-;     SCLR              ; 40                          ;
-;     plain             ; 13                          ;
+; cycloneiii_ff         ; 105                         ;
+;     ENA               ; 17                          ;
+;     ENA SCLR          ; 35                          ;
+;     SCLR              ; 41                          ;
+;     plain             ; 12                          ;
 ; cycloneiii_io_obuf    ; 6                           ;
-; cycloneiii_lcell_comb ; 148                         ;
+; cycloneiii_lcell_comb ; 159                         ;
 ;     arith             ; 62                          ;
 ;         2 data inputs ; 62                          ;
-;     normal            ; 86                          ;
+;     normal            ; 97                          ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 2                           ;
-;         2 data inputs ; 12                          ;
-;         3 data inputs ; 20                          ;
+;         2 data inputs ; 20                          ;
+;         3 data inputs ; 23                          ;
 ;         4 data inputs ; 51                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 6.00                        ;
-; Average LUT depth     ; 3.59                        ;
+; Max LUT depth         ; 5.00                        ;
+; Average LUT depth     ; 3.31                        ;
 +-----------------------+-----------------------------+
 
 
@@ -353,7 +365,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-    Info: Processing started: Wed Oct 16 21:05:26 2024
+    Info: Processing started: Thu Oct 17 18:17:46 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off uart_project -c uart_project
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -369,11 +381,12 @@ Info (12021): Found 1 design units, including 1 entities, in source file tb_top_
     Info (12023): Found entity 1: tb_top_level File: C:/Users/lykan/MTRX3700_Major/uart_project/tb_top_level.sv Line: 3
 Info (12127): Elaborating entity "top_level" for the top level hierarchy
 Warning (10034): Output port "LEDR[17..8]" at top_level.sv(6) has no driver File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
-Info (12128): Elaborating entity "arduino_uart_buffer" for hierarchy "arduino_uart_buffer:u_rx" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 21
-Warning (10230): Verilog HDL assignment warning at arduino_uart_buffer.sv(58): truncated value with size 32 to match size of target (3) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 58
-Warning (10230): Verilog HDL assignment warning at arduino_uart_buffer.sv(64): truncated value with size 32 to match size of target (1) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 64
-Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:u_tx" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 31
-Warning (10230): Verilog HDL assignment warning at uart_tx.sv(20): truncated value with size 32 to match size of target (1) File: C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv Line: 20
+Info (12128): Elaborating entity "arduino_uart_buffer" for hierarchy "arduino_uart_buffer:u_rx" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 20
+Warning (10230): Verilog HDL assignment warning at arduino_uart_buffer.sv(62): truncated value with size 32 to match size of target (4) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 62
+Warning (10230): Verilog HDL assignment warning at arduino_uart_buffer.sv(66): truncated value with size 32 to match size of target (1) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 66
+Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:u_tx" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 30
+Warning (10230): Verilog HDL assignment warning at uart_tx.sv(21): truncated value with size 32 to match size of target (1) File: C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv Line: 21
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13034): The following nodes have both tri-state and non-tri-state drivers
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[5]" and its non-tri-state driver. File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 4
 Warning (13039): The following bidirectional pins have no drivers
@@ -403,15 +416,15 @@ Warning (21074): Design contains 3 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 3
     Warning (15610): No output dependent on input pin "KEY[2]" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 3
     Warning (15610): No output dependent on input pin "KEY[3]" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 3
-Info (21057): Implemented 178 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 189 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 5 input pins
     Info (21059): Implemented 18 output pins
     Info (21060): Implemented 6 bidirectional pins
-    Info (21061): Implemented 149 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 30 warnings
-    Info: Peak virtual memory: 4841 megabytes
-    Info: Processing ended: Wed Oct 16 21:05:37 2024
-    Info: Elapsed time: 00:00:11
-    Info: Total CPU time (on all processors): 00:00:05
+    Info (21061): Implemented 160 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 31 warnings
+    Info: Peak virtual memory: 4833 megabytes
+    Info: Processing ended: Thu Oct 17 18:17:51 2024
+    Info: Elapsed time: 00:00:05
+    Info: Total CPU time (on all processors): 00:00:06
 
 

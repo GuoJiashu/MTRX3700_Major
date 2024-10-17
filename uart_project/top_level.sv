@@ -15,9 +15,8 @@ arduino_uart_buffer u_rx(
 	.clk_50(CLOCK_50), 
 	.reset(~KEY[0]), 
 	.arduino_input(GPIO[3]),          // The RX pin
-	.data_received(buffer), 
-	.valid(rx_valid),       // handshake
-	.ready(rx_ready)
+	.arduino_data(buffer), 
+	.valid(rx_valid)       // handshake
 );
 
 uart_tx u_tx(
