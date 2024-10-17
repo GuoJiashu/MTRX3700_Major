@@ -1,5 +1,5 @@
 Analysis & Synthesis report for uart_project
-Thu Oct 17 14:43:24 2024
+Thu Oct 17 18:17:51 2024
 Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
 
 
@@ -50,15 +50,15 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Thu Oct 17 14:43:24 2024       ;
+; Analysis & Synthesis Status        ; Successful - Thu Oct 17 18:17:51 2024       ;
 ; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
 ; Revision Name                      ; uart_project                                ;
 ; Top-level Entity Name              ; top_level                                   ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 124                                         ;
-;     Total combinational functions  ; 122                                         ;
-;     Dedicated logic registers      ; 79                                          ;
-; Total registers                    ; 79                                          ;
+; Total logic elements               ; 160                                         ;
+;     Total combinational functions  ; 158                                         ;
+;     Dedicated logic registers      ; 105                                         ;
+; Total registers                    ; 105                                         ;
 ; Total pins                         ; 29                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
@@ -186,20 +186,20 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 124            ;
+; Estimated Total logic elements              ; 160            ;
 ;                                             ;                ;
-; Total combinational functions               ; 122            ;
+; Total combinational functions               ; 158            ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 38             ;
-;     -- 3 input functions                    ; 14             ;
-;     -- <=2 input functions                  ; 70             ;
+;     -- 4 input functions                    ; 51             ;
+;     -- 3 input functions                    ; 23             ;
+;     -- <=2 input functions                  ; 84             ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 60             ;
+;     -- normal mode                          ; 96             ;
 ;     -- arithmetic mode                      ; 62             ;
 ;                                             ;                ;
-; Total registers                             ; 79             ;
-;     -- Dedicated logic registers            ; 79             ;
+; Total registers                             ; 105            ;
+;     -- Dedicated logic registers            ; 105            ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 29             ;
@@ -207,9 +207,9 @@ https://fpgasoftware.intel.com/eula.
 ; Embedded Multiplier 9-bit elements          ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 79             ;
-; Total fan-out                               ; 625            ;
-; Average fan-out                             ; 2.36           ;
+; Maximum fan-out                             ; 105            ;
+; Total fan-out                               ; 821            ;
+; Average fan-out                             ; 2.51           ;
 +---------------------------------------------+----------------+
 
 
@@ -218,40 +218,39 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------+---------------------+--------------+
 ; Compilation Hierarchy Node    ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                 ; Entity Name         ; Library Name ;
 +-------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------+---------------------+--------------+
-; |top_level                    ; 122 (0)             ; 79 (0)                    ; 0           ; 0            ; 0       ; 0         ; 29   ; 0            ; |top_level                          ; top_level           ; work         ;
-;    |arduino_uart_buffer:u_rx| ; 62 (62)             ; 42 (42)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top_level|arduino_uart_buffer:u_rx ; arduino_uart_buffer ; work         ;
-;    |uart_tx:u_tx|             ; 60 (60)             ; 37 (37)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top_level|uart_tx:u_tx             ; uart_tx             ; work         ;
+; |top_level                    ; 158 (0)             ; 105 (0)                   ; 0           ; 0            ; 0       ; 0         ; 29   ; 0            ; |top_level                          ; top_level           ; work         ;
+;    |arduino_uart_buffer:u_rx| ; 87 (87)             ; 60 (60)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top_level|arduino_uart_buffer:u_rx ; arduino_uart_buffer ; work         ;
+;    |uart_tx:u_tx|             ; 71 (71)             ; 45 (45)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top_level|uart_tx:u_tx             ; uart_tx             ; work         ;
 +-------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
 Encoding Type:  One-Hot
-+-----------------------------------------------------------------------------------------------+
-; State Machine - |top_level|arduino_uart_buffer:u_rx|state                                     ;
-+-----------------+----------------+------------+-----------------+------------+----------------+
-; Name            ; state.DATA_BIT ; state.WAIT ; state.START_BIT ; state.IDLE ; state.STOP_BIT ;
-+-----------------+----------------+------------+-----------------+------------+----------------+
-; state.IDLE      ; 0              ; 0          ; 0               ; 0          ; 0              ;
-; state.START_BIT ; 0              ; 0          ; 1               ; 1          ; 0              ;
-; state.WAIT      ; 0              ; 1          ; 0               ; 1          ; 0              ;
-; state.DATA_BIT  ; 1              ; 0          ; 0               ; 1          ; 0              ;
-; state.STOP_BIT  ; 0              ; 0          ; 0               ; 1          ; 1              ;
-+-----------------+----------------+------------+-----------------+------------+----------------+
++---------------------------------------------------------------------------------------------------------------+
+; State Machine - |top_level|arduino_uart_buffer:u_rx|state                                                     ;
++-----------------+---------------+----------------+----------------+------------+-----------------+------------+
+; Name            ; state.CLEANUP ; state.STOP_BIT ; state.DATA_BIT ; state.WAIT ; state.START_BIT ; state.IDLE ;
++-----------------+---------------+----------------+----------------+------------+-----------------+------------+
+; state.IDLE      ; 0             ; 0              ; 0              ; 0          ; 0               ; 0          ;
+; state.START_BIT ; 0             ; 0              ; 0              ; 0          ; 1               ; 1          ;
+; state.WAIT      ; 0             ; 0              ; 0              ; 1          ; 0               ; 1          ;
+; state.DATA_BIT  ; 0             ; 0              ; 1              ; 0          ; 0               ; 1          ;
+; state.STOP_BIT  ; 0             ; 1              ; 0              ; 0          ; 0               ; 1          ;
+; state.CLEANUP   ; 1             ; 0              ; 0              ; 0          ; 0               ; 1          ;
++-----------------+---------------+----------------+----------------+------------+-----------------+------------+
 
 
-+----------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                     ;
-+---------------------------------------------+------------------------------------------+
-; Register name                               ; Reason for Removal                       ;
-+---------------------------------------------+------------------------------------------+
-; uart_tx:u_tx|current_state[2..31]           ; Stuck at GND due to stuck port data_in   ;
-; arduino_uart_buffer:u_rx|input_buffer[0..7] ; Lost fanout                              ;
-; uart_tx:u_tx|data_tx_temp[1..7]             ; Merged with uart_tx:u_tx|data_tx_temp[0] ;
-; uart_tx:u_tx|data_tx_temp[0]                ; Stuck at GND due to stuck port data_in   ;
-; arduino_uart_buffer:u_rx|state~2            ; Lost fanout                              ;
-; arduino_uart_buffer:u_rx|state~3            ; Lost fanout                              ;
-; Total Number of Removed Registers = 48      ;                                          ;
-+---------------------------------------------+------------------------------------------+
++---------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                              ;
++----------------------------------------+----------------------------------------+
+; Register name                          ; Reason for Removal                     ;
++----------------------------------------+----------------------------------------+
+; uart_tx:u_tx|current_state[2..31]      ; Stuck at GND due to stuck port data_in ;
+; arduino_uart_buffer:u_rx|state~2       ; Lost fanout                            ;
+; arduino_uart_buffer:u_rx|state~3       ; Lost fanout                            ;
+; arduino_uart_buffer:u_rx|state~4       ; Lost fanout                            ;
+; Total Number of Removed Registers = 33 ;                                        ;
++----------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -259,25 +258,27 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 79    ;
-; Number of registers using Synchronous Clear  ; 64    ;
+; Total registers                              ; 105   ;
+; Number of registers using Synchronous Clear  ; 76    ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 35    ;
+; Number of registers using Clock Enable       ; 52    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                  ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                        ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------+
-; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |top_level|arduino_uart_buffer:u_rx|bit_index[1]  ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |top_level|arduino_uart_buffer:u_rx|clk_counts[2] ;
-; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |top_level|uart_tx:u_tx|cycle_count[12]           ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                   ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                         ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |top_level|arduino_uart_buffer:u_rx|bit_index[0]   ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |top_level|uart_tx:u_tx|data_tx_temp[7]            ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |top_level|arduino_uart_buffer:u_rx|buffer_prev[7] ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |top_level|arduino_uart_buffer:u_rx|clk_counts[5]  ;
+; 5:1                ; 32 bits   ; 96 LEs        ; 32 LEs               ; 64 LEs                 ; Yes        ; |top_level|uart_tx:u_tx|cycle_count[22]            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
 
 
 +-----------------------------------------------------------------------+
@@ -285,7 +286,7 @@ Encoding Type:  One-Hot
 +----------------+-------+----------------------------------------------+
 ; Parameter Name ; Value ; Type                                         ;
 +----------------+-------+----------------------------------------------+
-; CLKS_PRE_BITS  ; 434   ; Signed Integer                               ;
+; CLKS_PER_BIT   ; 434   ; Signed Integer                               ;
 ; DATA_BITS      ; 8     ; Signed Integer                               ;
 +----------------+-------+----------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
@@ -328,24 +329,24 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 29                          ;
-; cycloneiii_ff         ; 79                          ;
-;     ENA               ; 3                           ;
-;     ENA SCLR          ; 32                          ;
-;     SCLR              ; 32                          ;
+; cycloneiii_ff         ; 105                         ;
+;     ENA               ; 17                          ;
+;     ENA SCLR          ; 35                          ;
+;     SCLR              ; 41                          ;
 ;     plain             ; 12                          ;
 ; cycloneiii_io_obuf    ; 6                           ;
-; cycloneiii_lcell_comb ; 123                         ;
+; cycloneiii_lcell_comb ; 159                         ;
 ;     arith             ; 62                          ;
 ;         2 data inputs ; 62                          ;
-;     normal            ; 61                          ;
+;     normal            ; 97                          ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 2                           ;
-;         2 data inputs ; 6                           ;
-;         3 data inputs ; 14                          ;
-;         4 data inputs ; 38                          ;
+;         2 data inputs ; 20                          ;
+;         3 data inputs ; 23                          ;
+;         4 data inputs ; 51                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 6.00                        ;
-; Average LUT depth     ; 3.95                        ;
+; Max LUT depth         ; 5.00                        ;
+; Average LUT depth     ; 3.31                        ;
 +-----------------------+-----------------------------+
 
 
@@ -364,13 +365,12 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-    Info: Processing started: Thu Oct 17 14:43:18 2024
+    Info: Processing started: Thu Oct 17 18:17:46 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off uart_project -c uart_project
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file uart_tx.sv
     Info (12023): Found entity 1: uart_tx File: C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv Line: 1
-Warning (10275): Verilog HDL Module Instantiation warning at top_level.sv(20): ignored dangling comma in List of Port Connections File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 20
 Info (12021): Found 1 design units, including 1 entities, in source file top_level.sv
     Info (12023): Found entity 1: top_level File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file arduino_uart_tb.sv
@@ -382,26 +382,10 @@ Info (12021): Found 1 design units, including 1 entities, in source file tb_top_
 Info (12127): Elaborating entity "top_level" for the top level hierarchy
 Warning (10034): Output port "LEDR[17..8]" at top_level.sv(6) has no driver File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
 Info (12128): Elaborating entity "arduino_uart_buffer" for hierarchy "arduino_uart_buffer:u_rx" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 20
-Warning (10230): Verilog HDL assignment warning at arduino_uart_buffer.sv(58): truncated value with size 32 to match size of target (3) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 58
-Warning (10230): Verilog HDL assignment warning at arduino_uart_buffer.sv(62): truncated value with size 32 to match size of target (1) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 62
-Info (10041): Inferred latch for "arduino_data[0]" at arduino_uart_buffer.sv(63) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Info (10041): Inferred latch for "arduino_data[1]" at arduino_uart_buffer.sv(63) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Info (10041): Inferred latch for "arduino_data[2]" at arduino_uart_buffer.sv(63) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Info (10041): Inferred latch for "arduino_data[3]" at arduino_uart_buffer.sv(63) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Info (10041): Inferred latch for "arduino_data[4]" at arduino_uart_buffer.sv(63) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Info (10041): Inferred latch for "arduino_data[5]" at arduino_uart_buffer.sv(63) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Info (10041): Inferred latch for "arduino_data[6]" at arduino_uart_buffer.sv(63) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Info (10041): Inferred latch for "arduino_data[7]" at arduino_uart_buffer.sv(63) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
+Warning (10230): Verilog HDL assignment warning at arduino_uart_buffer.sv(62): truncated value with size 32 to match size of target (4) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 62
+Warning (10230): Verilog HDL assignment warning at arduino_uart_buffer.sv(66): truncated value with size 32 to match size of target (1) File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 66
 Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:u_tx" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 30
 Warning (10230): Verilog HDL assignment warning at uart_tx.sv(21): truncated value with size 32 to match size of target (1) File: C:/Users/lykan/MTRX3700_Major/uart_project/uart_tx.sv Line: 21
-Warning (14025): LATCH primitive "arduino_uart_buffer:u_rx|arduino_data[6]" is permanently disabled File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Warning (14025): LATCH primitive "arduino_uart_buffer:u_rx|arduino_data[5]" is permanently disabled File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Warning (14025): LATCH primitive "arduino_uart_buffer:u_rx|arduino_data[4]" is permanently disabled File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Warning (14025): LATCH primitive "arduino_uart_buffer:u_rx|arduino_data[3]" is permanently disabled File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Warning (14025): LATCH primitive "arduino_uart_buffer:u_rx|arduino_data[2]" is permanently disabled File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Warning (14025): LATCH primitive "arduino_uart_buffer:u_rx|arduino_data[1]" is permanently disabled File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Warning (14025): LATCH primitive "arduino_uart_buffer:u_rx|arduino_data[0]" is permanently disabled File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
-Warning (14025): LATCH primitive "arduino_uart_buffer:u_rx|arduino_data[7]" is permanently disabled File: C:/Users/lykan/MTRX3700_Major/uart_project/arduino_uart_buffer.sv Line: 63
 Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13034): The following nodes have both tri-state and non-tri-state drivers
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO[5]" and its non-tri-state driver. File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 4
@@ -414,14 +398,6 @@ Warning (13039): The following bidirectional pins have no drivers
 Warning (13009): TRI or OPNDRN buffers permanently enabled
     Warning (13010): Node "GPIO[5]~synth" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 4
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LEDR[0]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
-    Warning (13410): Pin "LEDR[1]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
-    Warning (13410): Pin "LEDR[2]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
-    Warning (13410): Pin "LEDR[3]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
-    Warning (13410): Pin "LEDR[4]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
-    Warning (13410): Pin "LEDR[5]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
-    Warning (13410): Pin "LEDR[6]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
-    Warning (13410): Pin "LEDR[7]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
     Warning (13410): Pin "LEDR[8]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
     Warning (13410): Pin "LEDR[9]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
     Warning (13410): Pin "LEDR[10]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
@@ -433,22 +409,22 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "LEDR[16]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
     Warning (13410): Pin "LEDR[17]" is stuck at GND File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 6
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 10 registers lost all their fanouts during netlist optimizations.
+Info (17049): 3 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 3 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 3
     Warning (15610): No output dependent on input pin "KEY[2]" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 3
     Warning (15610): No output dependent on input pin "KEY[3]" File: C:/Users/lykan/MTRX3700_Major/uart_project/top_level.sv Line: 3
-Info (21057): Implemented 153 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 189 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 5 input pins
     Info (21059): Implemented 18 output pins
     Info (21060): Implemented 6 bidirectional pins
-    Info (21061): Implemented 124 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 48 warnings
-    Info: Peak virtual memory: 4835 megabytes
-    Info: Processing ended: Thu Oct 17 14:43:24 2024
-    Info: Elapsed time: 00:00:06
+    Info (21061): Implemented 160 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 31 warnings
+    Info: Peak virtual memory: 4833 megabytes
+    Info: Processing ended: Thu Oct 17 18:17:51 2024
+    Info: Elapsed time: 00:00:05
     Info: Total CPU time (on all processors): 00:00:06
 
 
