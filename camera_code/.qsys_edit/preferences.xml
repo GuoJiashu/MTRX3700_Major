@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <systemtable filter="All Interfaces">
+  <columns>
+   <connections preferredWidth="79" />
+   <irq preferredWidth="34" />
+   <name preferredWidth="250" />
+  </columns>
+ </systemtable>
+ <library
+   expandedCategories="Project,Library/University Program,Library,Library/University Program/Audio &amp; Video/Video,Library/University Program/Audio &amp; Video" />
+ <window width="1557" height="1184" x="956" y="266" />
+ <generation simulation="VERILOG" />
+</preferences>
