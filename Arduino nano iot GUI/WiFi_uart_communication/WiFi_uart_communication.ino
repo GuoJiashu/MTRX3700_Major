@@ -1,6 +1,5 @@
 #include <WiFiNINA.h>
 #include <stdint.h>
-#include <stdlib.h>
 
 // Wi-Fi credentials
 const char ssid[] = "JG";          // Replace with your Wi-Fi network name
@@ -11,7 +10,7 @@ WiFiClient client;
 
 // Server details
 IPAddress server(172, 20, 10, 7); // Replace with your server's IP address
-const uint16_t port = 70;         // Replace with your server's port
+const uint16_t port = 80;         // Replace with your server's port
 
 // Buffer to store incoming data from Serial1
 String serial1Buffer = "";
@@ -51,51 +50,47 @@ void setup() {
 void loop() {
   // Handle incoming data from the Wi-Fi server
   if (client.available()) {
-    String serverData = client.readStringUntil('\n');
+    int incomingByte = client.read(); // Read one byte at a time
 
-    serverData.trim(); // Remove any leading/trailing whitespace
+    if (incomingByte != -1) {
+      uint8_t receivedData = (uint8_t)incomingByte;
 
-    if (serverData.length() > 0) {
-      Serial.println("Received from server: " + serverData);
-      
-      uint8_t serverData_8bits = (uint8_t) atoi(serverData.c_str());
+      // 打印收到的字节，显示为十六进制
+      Serial.print("Received from server: 0x");
+      Serial.println(receivedData, HEX);
 
-      // Send the received data to the other Arduino via Serial1
-      Serial1.println(serverData_8bits);
-      Serial.println("Sent to another Arduino via UART: " + serverData_8bits);
+      // 发送到另一个 Arduino（通过 Serial1）
+      Serial1.write(receivedData);
+      Serial.print("Sent to another Arduino via UART: 0x");
+      Serial.println(receivedData, HEX);
+
       digitalWrite(LED_BUILTIN, HIGH);
     }
   }
 
   // Handle incoming data from Serial1 (another Arduino)
-  while (Serial1.available() > 0) {
-    char incomingByte = Serial1.read();
-    if (incomingByte == '\n') {
-      // Complete message received
-      serial1Buffer.trim(); // Clean up the received data
-      if (serial1Buffer.length() > 0) {
-        Serial.println("Received from UART: " + serial1Buffer);
-        
-        // Send the received data to the server
-        if (client.connected()) {
-          client.println(serial1Buffer);
-          Serial.println("Sent to server: " + serial1Buffer);
-        } else {
-          Serial.println("Server connection lost. Attempting to reconnect...");
-          while (!client.connect(server, port)) {
-            Serial.println("Reconnecting to server failed. Retrying in 5 seconds...");
-            delay(5000);
-          }
-          Serial.println("Reconnected to server.");
-          client.println(serial1Buffer);
-          Serial.println("Sent to server: " + serial1Buffer);
-        }
-        // Clear the buffer after processing
-        serial1Buffer = "";
-      }
+  if (Serial1.available() > 0) {
+    uint8_t uartData = Serial1.read();
+
+    // 打印收到的 UART 数据
+    Serial.print("Received from UART: 0x");
+    Serial.println(uartData, HEX);
+
+    // Send the received data to the server
+    if (client.connected()) {
+      client.write(uartData); // 直接发送字节
+      Serial.print("Sent to server: 0x");
+      Serial.println(uartData, HEX);
     } else {
-      // Append incoming byte to the buffer
-      serial1Buffer += incomingByte;
+      Serial.println("Server connection lost. Attempting to reconnect...");
+      while (!client.connect(server, port)) {
+        Serial.println("Reconnecting to server failed. Retrying in 5 seconds...");
+        delay(5000);
+      }
+      Serial.println("Reconnected to server.");
+      client.write(uartData);
+      Serial.print("Sent to server: 0x");
+      Serial.println(uartData, HEX);
     }
   }
 
@@ -105,10 +100,14 @@ void loop() {
     userInput.trim(); // Remove any leading/trailing whitespace
 
     if (userInput.length() > 0) {
+      // Convert the input string to a number
+      uint8_t userData = (uint8_t)strtoul(userInput.c_str(), NULL, 0); // 支持十进制和十六进制输入
+
       // Send the user input to the server
       if (client.connected()) {
-        client.println(userInput);
-        Serial.println("Sent to server: " + userInput);
+        client.write(userData);
+        Serial.print("Sent to server: 0x");
+        Serial.println(userData, HEX);
       } else {
         Serial.println("Server connection lost. Attempting to reconnect...");
         while (!client.connect(server, port)) {
@@ -116,8 +115,9 @@ void loop() {
           delay(5000);
         }
         Serial.println("Reconnected to server.");
-        client.println(userInput);
-        Serial.println("Sent to server: " + userInput);
+        client.write(userData);
+        Serial.print("Sent to server: 0x");
+        Serial.println(userData, HEX);
       }
     } else {
       Serial.println("No input detected. Nothing sent.");
