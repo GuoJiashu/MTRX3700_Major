@@ -352,7 +352,7 @@ class App:
                         # 接收来自客户端的数据
                         data = s.recv(1024)
                         if data:
-                            received = data.decode().strip()
+                            received = data.hex().strip()
                             if received:
                                 self.queue.put("Received from Arduino: " + received)
                         else:
