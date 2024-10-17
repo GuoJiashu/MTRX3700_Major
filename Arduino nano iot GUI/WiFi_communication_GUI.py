@@ -320,7 +320,7 @@ class App:
 
     def run_socket_server(self):
         HOST = ''  # 监听所有接口
-        PORT = 70  # 使用一个非特权端口（避免权限问题）
+        PORT = 80  # 使用一个非特权端口（避免权限问题）
 
         try:
             self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -571,18 +571,18 @@ class App:
                 bitmask |= self.key_to_bit[key]
 
             # 将 bitmask 转换为字节类型
-            bitmask_bytes = bitmask.to_bytes(1, byteorder='big')  # 用 1 个字节表示 8 位
+            bitmask_bytes = bitmask.to_bytes(1, byteorder='big')
 
             # 如果没有按下任何键，发送 00000000
             if not self.keys_pressed:
-                bitmask_bytes = (0).to_bytes(1, byteorder='big')  # 发送 0 表示 00000000
+                bitmask_bytes = (0).to_bytes(1, byteorder='big')
 
             # 发送独热码
             self.message_queue.put(bitmask_bytes)
 
             self.last_sent_bitmask = bitmask_bytes
 
-        self.master.after(1000, self.continuous_send_bitmask)
+        self.master.after(100, self.continuous_send_bitmask)
 
 
 if __name__ == "__main__":

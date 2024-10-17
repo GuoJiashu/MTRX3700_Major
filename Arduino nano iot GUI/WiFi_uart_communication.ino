@@ -1,32 +1,29 @@
 #include <WiFiNINA.h>
 
 // Wi-Fi credentials
-const char ssid[] = "JG";          // Replace with your Wi-Fi network name
-const char pass[] = "20030921";    // Replace with your Wi-Fi network password
-int status = WL_IDLE_STATUS;
+const char ssid[] = "Kan";          // Replace with your Wi-Fi network name
+const char pass[] = "LYKan0202";    // Replace with your Wi-Fi network password
 
 WiFiClient client;
 
 // Server details
 IPAddress server(172, 20, 10, 7); // Replace with your server's IP address
-const uint16_t port = 70;         // Replace with your server's port
-
-// Buffer to store incoming data from Serial1
-String serial1Buffer = "";
+const uint16_t port = 80;         // Replace with your server's port
 
 void setup() {
+
   // Initialize Serial communication for debugging
   Serial.begin(115200);
   while (!Serial) { ; } // Wait for Serial to be ready (needed for some boards)
 
-  // Initialize Serial1 for UART communication
-  Serial1.begin(115200); // Ensure this matches the other Arduino's baud rate
+  // Initialize Serial1 for UART communication with FPGA
+  Serial1.begin(115200); // Ensure this matches the FPGA's UART configuration
 
   // Connect to Wi-Fi
-  while (status != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED) {
     Serial.print("Attempting to connect to SSID: ");
     Serial.println(ssid);
-    status = WiFi.begin(ssid, pass);
+    WiFi.begin(ssid, pass);
     delay(5000); // Wait 5 seconds before retrying
   }
   Serial.println("Connected to Wi-Fi!");
@@ -36,7 +33,7 @@ void setup() {
   Serial.print(server);
   Serial.print(":");
   Serial.println(port);
-  
+
   while (!client.connect(server, port)) {
     Serial.println("Failed to connect to server. Retrying in 5 seconds...");
     delay(5000);
@@ -45,49 +42,61 @@ void setup() {
 }
 
 void loop() {
-  // Handle incoming data from the Wi-Fi server
-  if (client.available()) {
-    String serverData = client.readStringUntil('\n');
-    serverData.trim(); // Remove any leading/trailing whitespace
+  // Check server connection periodically
+  if (!client.connected()) {
+    Serial.println("Server connection lost. Attempting to reconnect...");
+    client.stop();
+    delay(1000);
+    while (!client.connect(server, port)) {
+      Serial.println("Reconnecting to server failed. Retrying in 5 seconds...");
+      delay(5000);
+    }
+    Serial.println("Reconnected to server.");
+  }
 
-    if (serverData.length() > 0) {
-      Serial.println("Received from server: " + serverData);
-      
-      // Send the received data to the other Arduino via Serial1
-      Serial1.println(serverData);
-      Serial.println("Sent to another Arduino via UART: " + serverData);
+  // Handle incoming data from the Wi-Fi server
+  while (client.available()) {
+    int incomingByte = client.read(); // Read one byte at a time
+
+    if (incomingByte != -1) {
+      uint8_t receivedData = (uint8_t)incomingByte;
+
+      Serial.print("Received from server: ");
+      for (int i = 7; i >= 0; i--) {
+        Serial.print(bitRead(receivedData, i));
+      }
+      Serial.println();
+
+      Serial1.write(receivedData);
+      Serial.print("Sent to FPGA via UART: ");
+      for (int i = 7; i >= 0; i--) {
+        Serial.print(bitRead(receivedData, i));
+      }
+      Serial.println();
     }
   }
 
-  // Handle incoming data from Serial1 (another Arduino)
+  // Handle incoming data from Serial1 (FPGA)
   while (Serial1.available() > 0) {
-    char incomingByte = Serial1.read();
-    if (incomingByte == '\n') {
-      // Complete message received
-      serial1Buffer.trim(); // Clean up the received data
-      if (serial1Buffer.length() > 0) {
-        Serial.println("Received from UART: " + serial1Buffer);
-        
-        // Send the received data to the server
-        if (client.connected()) {
-          client.println(serial1Buffer);
-          Serial.println("Sent to server: " + serial1Buffer);
-        } else {
-          Serial.println("Server connection lost. Attempting to reconnect...");
-          while (!client.connect(server, port)) {
-            Serial.println("Reconnecting to server failed. Retrying in 5 seconds...");
-            delay(5000);
-          }
-          Serial.println("Reconnected to server.");
-          client.println(serial1Buffer);
-          Serial.println("Sent to server: " + serial1Buffer);
-        }
-        // Clear the buffer after processing
-        serial1Buffer = "";
+    int uartData = Serial1.read();
+
+    if (uartData != -1) {
+      uint8_t receivedData = (uint8_t)uartData;
+
+      // 打印收到的 UART 数据
+      Serial.print("Received from FPGA via UART: ");
+      for (int i = 7; i >= 0; i--) {
+        Serial.print(bitRead(receivedData, i));
       }
-    } else {
-      // Append incoming byte to the buffer
-      serial1Buffer += incomingByte;
+      Serial.println();
+
+      // Send the received data to the server
+      client.write(receivedData);
+      Serial.print("Sent to server: ");
+      for (int i = 7; i >= 0; i--) {
+        Serial.print(bitRead(receivedData, i));
+      }
+      Serial.println();
     }
   }
 
@@ -97,19 +106,20 @@ void loop() {
     userInput.trim(); // Remove any leading/trailing whitespace
 
     if (userInput.length() > 0) {
-      // Send the user input to the server
-      if (client.connected()) {
-        client.println(userInput);
-        Serial.println("Sent to server: " + userInput);
+      // Convert the input string to a number
+      char* endPtr;
+      uint8_t userData = (uint8_t)strtoul(userInput.c_str(), &endPtr, 0);
+
+      if (*endPtr != '\0') {
+        Serial.println("Invalid input. Please enter a valid number.");
       } else {
-        Serial.println("Server connection lost. Attempting to reconnect...");
-        while (!client.connect(server, port)) {
-          Serial.println("Reconnecting to server failed. Retrying in 5 seconds...");
-          delay(5000);
+        // Send the user input to the server
+        client.write(userData);
+        Serial.print("Sent to server: ");
+        for (int i = 7; i >= 0; i--) {
+          Serial.print(bitRead(userData, i));
         }
-        Serial.println("Reconnected to server.");
-        client.println(userInput);
-        Serial.println("Sent to server: " + userInput);
+        Serial.println();
       }
     } else {
       Serial.println("No input detected. Nothing sent.");
