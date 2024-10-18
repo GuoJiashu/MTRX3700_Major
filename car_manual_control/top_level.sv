@@ -1,7 +1,8 @@
 module top_level(
     input CLOCK_50,
     input [3:0] KEY,
-    inout [5:0] GPIO
+	 output [17:0] LEDR,
+    inout [10:0] GPIO
 );
 
 logic [7:0] arduino_command = 8'b00000000; 
@@ -11,7 +12,7 @@ logic [3:0] speed_level = 4'b0000;
 logic [3:0] move_cmd = 4'b0000;
 logic rx_valid;
 
-
+assign LEDR[3:0] = move_cmd;
 mode_select mode_select_u0(
     .clk(CLOCK_50),
     .arduino_command(arduino_command),
@@ -43,7 +44,7 @@ always_comb begin
 		move_cmd = 4'b0010;  // 右转 - wd
 	end else if (as) begin
 		move_cmd = 4'b0110;  // 倒退左转 - as
-	end else if (sd) begin
+	end else if (ds) begin
 		move_cmd = 4'b0111;  // 倒退右转 - sd
 	end else if (w) begin
 		move_cmd = 4'b0000;  // 前进 - w
@@ -64,7 +65,7 @@ uart_comm #(
         .clk(CLOCK_50),                               
         .rst(~KEY[0]),     
 		.move_cmd(move_cmd),
-		.speed_level(0),
+		.speed_level(1),
         .valid(rx_valid),             
         .ready(),             
         .uart_out(GPIO[5])        
@@ -73,8 +74,9 @@ uart_comm #(
 arduino_uart_buffer u_rx(
 	.clk_50(CLOCK_50), 
 	.reset(~KEY[0]), 
-	.arduino_input(GPIO[7]),
+	.arduino_input(GPIO[3]),
 	.arduino_data(arduino_command), 
-	.valid(rx_valid)
+	.valid(rx_valid),
+	.ready(1)
 );
 endmodule
