@@ -1,5 +1,5 @@
 module uart_comm #(
-	 parameter CLKS_PER_BIT = 50_000_000/115_200
+	 parameter CLKS_PER_BIT = 3//50_000_000/115_200
 )(
     input clk,
 	input rst,
@@ -15,8 +15,7 @@ module uart_comm #(
     logic [7:0] data_tx=0;        // 当前发送的字符数据
     logic sending = 0;            // 标志是否正在发送
 	logic baud_trigger = 0;
-	 logic [4:0] sent_count = 0;
-	 logic sent_trigger = 0;
+	logic sent = 0;
 	 
 	logic [3:0] SW_prev;         // 保存上一个SW状态
     logic SW_changed;             // 标志SW是否变化
@@ -79,31 +78,24 @@ module uart_comm #(
             index <= 0;
             sending <= 0;
             data_tx <= 8'h00;
-				ready_trigger <= 0;
-				SW_prev <= move_cmd;        // 初始化SW_prev
-				spd_prev <= speed_level;
-				sent_trigger <= 0;
-				sent_count <= 0;
+			ready_trigger <= 0;
+			SW_prev <= move_cmd;        // 初始化SW_prev
+			spd_prev <= speed_level;
+			sent <= 0;
         end else begin
 				SW_prev <= move_cmd;			// 更新SW_prev
 				spd_prev <= speed_level;
 				// 检测move_cmd变化
 				if (move_cmd != SW_prev) begin
 					SW_changed <= 1;
-					sent_trigger <= 0;
-					sent_count <= 0;
+					sent <= 0;
 				end else begin
 					SW_changed <= 0;
-					sent_count <= sent_count + 1;
-					
-					if (sent_count == 5'b11111) begin
-						sent_trigger <= 1;
-						sent_count <= 0;
-					end
 				end
 			
 				if (speed_level != spd_prev) begin
 					spd_changed <= 1;
+					sent <= 0;
 				end else begin
 					spd_changed <= 0;
 				end
@@ -160,7 +152,11 @@ module uart_comm #(
 
 		
 				// 当检测到SW变化时，重新开始发送
-				if (SW_changed || spd_changed || (valid && ready && !ready_trigger) || sent_trigger) begin  
+				if (sent || SW_changed || spd_changed || (valid && ready && !ready_trigger)) begin 
+					if (sent) begin
+						sent <= 0;
+					end
+					
 					if (!neg_l && !neg_r) begin 							// Normal forward
 					// 开始发送数据
 						if (index < 24) begin
@@ -171,7 +167,7 @@ module uart_comm #(
 							 sending <= 0;                // 23位数据发送完毕
 							 index <= 0;                  // 复位索引
 							 data_tx <= 8'h00;
-							 sent_trigger <= 0;
+							 sent <= 1;
 						end
 					end else if (neg_l && neg_r) begin 					// 二轮倒退
 						if (index == 11 || index == 20) begin
@@ -182,7 +178,7 @@ module uart_comm #(
 							 sending <= 0;                // 25位数据发送完毕
 							 index <= 0;                  // 复位索引
 							 data_tx <= 8'h00;
-							 sent_trigger <= 0;
+							 sent <= 1;
 						end else if (index > 20) begin
 							 sending <= 1;
 							 data_tx <= data_mem[index-2];// 已插入了两个负号，索引-2
@@ -205,7 +201,7 @@ module uart_comm #(
 							 sending <= 0;                // 24位数据发送完毕
 							 index <= 0;                  
 							 data_tx <= 8'h00;
-							 sent_trigger <= 0;
+							 sent <= 1;
 						end else if (index > 11) begin
 							 sending <= 1;
 							 data_tx <= data_mem[index-1];// 已插入了一个负号，索引-1
@@ -224,7 +220,7 @@ module uart_comm #(
 							 sending <= 0;                // 24位数据发送完毕
 							 index <= 0;                  
 							 data_tx <= 8'h00;
-							 sent_trigger <= 0;
+							 sent <= 1;
 						end else if (index >= 20) begin
 							 sending <= 1;
 							 data_tx <= data_mem[index-1];// 已插入了1个负号，索引-1
