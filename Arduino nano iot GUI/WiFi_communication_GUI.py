@@ -320,7 +320,7 @@ class App:
 
     def run_socket_server(self):
         HOST = ''  # 监听所有接口
-        PORT = 80  # 使用一个非特权端口（避免权限问题）
+        PORT = 70  # 使用一个非特权端口（避免权限问题）
 
         try:
             self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
