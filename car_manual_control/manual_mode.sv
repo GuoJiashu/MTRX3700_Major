@@ -21,7 +21,7 @@ always_comb begin
         next_state = Left_forward;
     else if ((arduino_command == 8'b00001001))
         next_state = Right_forward;
-    else if ((arduino_command == 8'b00000101))
+    else if ((arduino_command == 8'b00000110))
         next_state = Left_backward;
     else if ((arduino_command == 8'b00001100))
         next_state = Right_backward;

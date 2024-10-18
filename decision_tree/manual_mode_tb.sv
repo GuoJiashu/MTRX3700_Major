@@ -73,7 +73,7 @@ module manual_mode_tb;
         #20;
 
         // 测试左后命令
-        arduino_command = 8'b00000101; // Left Backward
+        arduino_command = 8'b00000110; // Left Backward
         #20;
 
         // 测试右后命令
