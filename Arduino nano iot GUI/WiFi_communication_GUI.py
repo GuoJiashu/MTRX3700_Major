@@ -107,7 +107,6 @@ class ToggleSwitch(tk.Canvas):
                 self.itemconfig(self.bg, fill=self.bg_color)
             self.itemconfig(self.handle, fill=self.handle_color)
 
-    # 新增 set_state 方法
     def set_state(self, is_on, call_command=True):
         if self.is_on == is_on:
             return  # 状态未改变
@@ -320,7 +319,7 @@ class App:
 
     def run_socket_server(self):
         HOST = ''  # 监听所有接口
-        PORT = 70  # 使用一个非特权端口（避免权限问题）
+        PORT = 80  # 使用一个非特权端口（避免权限问题）
 
         try:
             self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -391,8 +390,17 @@ class App:
         if message:
             if self.conn:
                 try:
-                    self.conn.sendall((message + '\n').encode())
-                    self.display_message("Sent to Arduino: " + message)
+                    # 将输入转换为字节
+                    try:
+                        # 尝试将输入解释为二进制字符串
+                        message_int = int(message, 2)
+                        message_bytes = message_int.to_bytes(1, byteorder='big')
+                    except ValueError:
+                        # 如果不是二进制字符串，尝试将其作为整数处理
+                        message_int = int(message)
+                        message_bytes = message_int.to_bytes(1, byteorder='big')
+                    self.conn.sendall(message_bytes)
+                    self.display_message(f"Sent to Arduino: {message_bytes.hex()}")
                     self.entry.delete(0, 'end')  # 发送后清空输入框
                 except Exception as e:
                     self.display_message("Error sending message: " + str(e))
@@ -437,18 +445,22 @@ class App:
                         # 如果 message 是字节类型，直接发送
                         self.conn.sendall(message)
                         self.display_message(f"Sent to Arduino: {message.hex()}")
+                    elif isinstance(message, int):
+                        # 如果 message 是整数，转换为字节
+                        message_bytes = message.to_bytes(1, byteorder='big')
+                        self.conn.sendall(message_bytes)
+                        self.display_message(f"Sent to Arduino: {message_bytes.hex()}")
                     else:
-                        # 如果 message 是字符串类型，先拼接换行符并编码为字节类型
-                        self.conn.sendall((message + '\n').encode())
-                        self.display_message("Sent to Arduino: " + message)
+                        self.display_message("Invalid message format.")
+                    self.message_sending_in_progress = True
+                    self.master.after(100, self.message_sent)
                 except Exception as e:
                     self.display_message(f"Error sending message: {e}")
                     self.update_status("Disconnected", "red")
                     self.conn = None
             else:
                 self.display_message("Not connected to Arduino")
-            self.message_sending_in_progress = True
-            self.master.after(100, self.message_sent)
+                self.message_sending_in_progress = False
         else:
             self.message_sending_in_progress = False
 
@@ -502,30 +514,29 @@ class App:
             if self.is_paused:
                 self.pause_start_label.config(image=self.pause_img)
                 self.display_message("Car Stop")
-                self.message_queue.put('00010000')  # 发送暂停消息，表示停止
+                self.message_queue.put(0x10)  # 发送暂停消息，表示停止
             else:
                 self.pause_start_label.config(image=self.start_img)
                 self.display_message("Car Running")
-                self.message_queue.put('00000000')
+                self.message_queue.put(0x00)
                 # 发送当前按键的独热码
                 bitmask = 0
                 for key in self.keys_pressed:
                     bitmask |= self.key_to_bit[key]
-                bitmask_str = format(bitmask, '08b')
-                self.message_queue.put(bitmask_str)
+                self.message_queue.put(bitmask)
             self.process_message_queue()
 
     # ToggleSwitch 的回调函数
     def on_toggle_switch(self, is_on):
         if is_on:
-            message = '11111111'  # 自动模式开启时发送11111111
+            message = 0xFF  # 自动模式开启时发送 11111111
             self.display_message("Auto Mode On")
             self.bottom_status_label.config(text="Auto Mode On", bg="green")
             # 启用红色和蓝色的开关
             self.red_toggle.set_enabled(True)
             self.blue_toggle.set_enabled(True)
         else:
-            message = '00000000'  # 自动模式关闭时发送00000000
+            message = 0x00  # 自动模式关闭时发送 00000000
             self.display_message("Auto Mode Off")
             self.bottom_status_label.config(text="Auto Mode Off", bg="red")
             # 禁用红色和蓝色的开关
@@ -543,12 +554,10 @@ class App:
             if self.blue_toggle.is_on:
                 self.blue_toggle.set_state(False)
             self.display_message("Red Toggle On")
-            self.message_queue.put('10000000')
-            # 您可以在此添加发送消息或其他逻辑
+            self.message_queue.put(0x80)  # 10000000
         else:
             self.display_message("Red Toggle Off")
-            self.message_queue.put('01000000')
-            # 您可以在此添加发送消息或其他逻辑
+            self.message_queue.put(0x40)  # 01000000
 
     # 蓝色开关的回调函数
     def on_blue_toggle(self, is_on):
@@ -556,12 +565,10 @@ class App:
             if self.red_toggle.is_on:
                 self.red_toggle.set_state(False)
             self.display_message("Blue Toggle On")
-            self.message_queue.put('00100000')
-            # 您可以在此添加发送消息或其他逻辑
+            self.message_queue.put(0x20)  # 00100000
         else:
             self.display_message("Blue Toggle Off")
-            self.message_queue.put('00010000')
-            # 您可以在此添加发送消息或其他逻辑
+            self.message_queue.put(0x10)  # 00010000
 
     def continuous_send_bitmask(self):
         if not self.is_paused and not self.toggle_switch.is_on and self.conn:
@@ -573,7 +580,7 @@ class App:
             # 将 bitmask 转换为字节类型
             bitmask_bytes = bitmask.to_bytes(1, byteorder='big')
 
-            # 如果没有按下任何键，发送 00000000
+            # 如果没有按下任何键，发送 0x00
             if not self.keys_pressed:
                 bitmask_bytes = (0).to_bytes(1, byteorder='big')
 
