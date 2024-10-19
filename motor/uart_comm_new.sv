@@ -212,7 +212,7 @@ module uart_comm #(
 							 index <= index + 1;          // 索引增加，指向下一个字符
 						end
 					end else if (neg_r) begin 								// 仅右轮倒退
-						if (index == 20) begin
+						if (index == 19) begin
 							 sending <= 1;
 							 data_tx <= 8'h2D;  				// 发送负号
 							 index <= index + 1;          
@@ -221,7 +221,7 @@ module uart_comm #(
 							 index <= 0;                  
 							 data_tx <= 8'h00;
 							 sent <= 1;
-						end else if (index >= 20) begin
+						end else if (index >= 19) begin
 							 sending <= 1;
 							 data_tx <= data_mem[index-1];// 已插入了1个负号，索引-1
 							 index <= index + 1;          
