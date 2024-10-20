@@ -1,6 +1,6 @@
 module pwm_generator (
     input clk,
-	 input SW,
+	input SW,
     output logic pwm_out
 );
 
