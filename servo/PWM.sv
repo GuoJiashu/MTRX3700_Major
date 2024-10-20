@@ -7,7 +7,7 @@ module pwm_generator (
     logic [19:0] counter = 0;
     logic [19:0] duty;
     logic [19:0] period = 1000000;
-	 logic [7:0] angle = 8'd0;
+	logic [7:0] angle = 8'd0;
 
     parameter int MIN_DUTY = 50000;
     parameter int MAX_DUTY = 100000;
