@@ -1,13 +1,12 @@
 module top_level(
-    input CLOCK_50,  // FPGA 时钟 (50MHz)
-    inout GPIO[9:0]
+    input CLOCK_50,
+    inout GPIO[9:0],
+	 input SW[17:0]
 );
-
-logic [7:0] angle = 8'd90;
 
 pwm_generator pwm_inst (
     .clk(CLOCK_50),
-    .angle(angle),
+	 .SW(SW[0]),
     .pwm_out(GPIO[9])
 );
     
