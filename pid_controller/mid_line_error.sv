@@ -1,10 +1,10 @@
-module mid_line_error #(parameter IMAGE_WIDTH = 320, IMAGE_LENGTH = 240, COLOUR_BITS = 4)(
+module mid_line_error#(parameter IMAGE_WIDTH = 320, IMAGE_LENGTH = 240, COLOUR_BITS = 4)(
 	input 								clk,
 	input 								reset,
 	input [11:0]						pixel,
 	input 								red,
-	input								green,
-	input								blue,
+	input									green,
+	input									blue,
 	input 								startofpacket,
 	
 	output logic signed  [31:0]	error,
@@ -51,7 +51,7 @@ module mid_line_error #(parameter IMAGE_WIDTH = 320, IMAGE_LENGTH = 240, COLOUR_
 			end
 			
 			if (row_counter >= 109 && row_counter <= 229) begin
-				if ((col_counter > 105) && (col_counter < 211)) begin
+				if ((col_counter > 105) && (col_counter < 212)) begin
 					if (pixel_temp == 1) begin
 						x_sum <= x_sum + col_counter;
 						pixel_found <= pixel_found +1;
