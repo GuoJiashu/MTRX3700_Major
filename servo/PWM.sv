@@ -28,7 +28,7 @@ module pwm_generator (
 	 
 	 always_comb begin
 		 if (SW) begin
-			 angle = 8'd210;
+			 angle = 8'd180;
 		 end else begin
 			 angle = 8'd0;
 		 end
