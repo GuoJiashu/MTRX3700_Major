@@ -1,10 +1,10 @@
-module mid_line_error#(parameter IMAGE_WIDTH = 320, IMAGE_LENGTH = 240, COLOUR_BITS = 4)(
+module mid_line_error #(parameter IMAGE_WIDTH = 320, IMAGE_LENGTH = 240, COLOUR_BITS = 4)(
 	input 								clk,
 	input 								reset,
 	input [11:0]						pixel,
 	input 								red,
-	input									green,
-	input									blue,
+	input								green,
+	input								blue,
 	input 								startofpacket,
 	
 	output logic signed  [31:0]	error,
