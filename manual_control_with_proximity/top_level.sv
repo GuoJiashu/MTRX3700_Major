@@ -1,8 +1,8 @@
 module top_level(
     input CLOCK_50,
     input [3:0] KEY,
-	output [17:0] LEDR,
-    inout [10:0] GPIO
+	 output [17:0] LEDR,
+    inout [35:0] GPIO
 );
 
 logic [7:0] arduino_command = 8'b00000000; 
@@ -12,6 +12,27 @@ logic [3:0] speed_level = 4'b0000;
 logic [3:0] move_cmd = 4'b0000;
 logic rx_valid;
 logic servo = 0;
+
+logic [7:0] ultra;
+
+assign echo = GPIO[34];
+assign GPIO[35] = trigger;
+
+debounce reset_edge(
+    .clk(CLOCK_50),
+	 .button(!KEY[2]),
+    .button_edge(reset)
+);
+
+sensor_driver u0(
+	.clk(CLOCK_50),
+	.rst(reset),
+	.echo(echo),
+	.trig(trigger),
+
+	.LEDG(LEDG[7:0]),
+	.distance_out(ultra)
+);
 
 assign LEDR[7:0] = arduino_command;
 mode_select mode_select_u0(
@@ -37,7 +58,7 @@ manual_mode manual_mode_u0(
 );
 
 always_comb begin
-    if (stop) begin
+    if (stop || ultar == 7'b00001111) begin
        move_cmd = 4'b1000;  // 对应停止操作
     end else if (wa) begin
        move_cmd = 4'b0001;  // 左转 - wa
