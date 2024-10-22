@@ -204,8 +204,8 @@ class App:
                                        active_color="red", command=self.on_red_toggle)
         self.red_toggle.pack(side='left', padx=5)
 
-        self.blue_toggle = ToggleSwitch(self.toggle_frame, width=60, height=30, bg_color="blue",
-                                        active_color="blue", command=self.on_blue_toggle)
+        self.blue_toggle = ToggleSwitch(self.toggle_frame, width=60, height=30, bg_color="green",
+                                        active_color="green", command=self.on_blue_toggle)
         self.blue_toggle.pack(side='left', padx=5)
 
         # 初始化时禁用红色和蓝色的开关
