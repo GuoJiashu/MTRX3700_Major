@@ -1,7 +1,7 @@
 module top_level(
     input CLOCK_50,
     input [3:0] KEY,
-	 output [17:0] LEDR,
+	output [17:0] LEDR,
     inout [10:0] GPIO
 );
 
