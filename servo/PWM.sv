@@ -1,6 +1,6 @@
 module pwm_generator (
     input clk,
-	input SW,
+	 input SW,
     output logic pwm_out
 );
 
@@ -28,9 +28,9 @@ module pwm_generator (
 	 
 	 always_comb begin
 		 if (SW) begin
-			 angle = 8'd180;
+			 angle = 8'd200;
 		 end else begin
-			 angle = 8'd0;
+			 angle = 8'd15;
 		 end
 	 end
 endmodule
