@@ -11,8 +11,9 @@ logic w = 0, s = 0, a = 0, d = 0, wa = 0, wd = 0, as = 0, ds = 0, stop = 0;
 logic [3:0] speed_level = 4'b0000;
 logic [3:0] move_cmd = 4'b0000;
 logic rx_valid;
+logic servo = 0;
 
-assign LEDR[3:0] = move_cmd;
+assign LEDR[7:0] = arduino_command;
 mode_select mode_select_u0(
     .clk(CLOCK_50),
     .arduino_command(arduino_command),
@@ -37,9 +38,9 @@ manual_mode manual_mode_u0(
 
 always_comb begin
     if (stop) begin
-        move_cmd = 4'b1000;  // 对应停止操作
+       move_cmd = 4'b1000;  // 对应停止操作
     end else if (wa) begin
-        move_cmd = 4'b0001;  // 左转 - wa
+       move_cmd = 4'b0001;  // 左转 - wa
 	end else if (wd) begin
 		move_cmd = 4'b0010;  // 右转 - wd
 	end else if (as) begin
@@ -56,6 +57,14 @@ always_comb begin
 		move_cmd = 4'b0101;  // 顺时针原地旋转 - d
 	end else begin
 		move_cmd = 4'b1000;  // 默认停止
+	end
+end
+
+always_ff @(posedge CLOCK_50) begin
+	if (arduino_command == 8'b11110000) begin
+		servo <= 1;
+	end else if (arduino_command == 8'b11000000) begin
+		servo <= 0;
 	end
 end
 
@@ -79,4 +88,11 @@ arduino_uart_buffer u_rx(
 	.valid(rx_valid),
 	.ready(1)
 );
+
+pwm_generator pwm_u0 (
+		.clk(CLOCK_50),
+		.SW(servo),
+		.pwm_out(GPIO[9])
+	);
+
 endmodule
