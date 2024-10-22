@@ -13,10 +13,11 @@ mode_select mode_select_u0(
     .auto_on(auto_on)
 );
 
-manual_mode manual_mode_u0(
+control_base control_base_u0(
     .clk(CLOCK_50),
     .arduino_command(arduino_command),
     .manual_on(manual_on),
+    .auto_on(auto_on),
     .w(w),
     .s(s),
     .a(a),

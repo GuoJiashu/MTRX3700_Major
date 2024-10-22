@@ -2,6 +2,7 @@ module manual_mode(
     input  clk,
     input  [7:0] arduino_command,
     input  manual_on,
+    input  auto_on,
     output w, s, a, d, wa, wd, as, ds, stop
 );
 
@@ -35,14 +36,14 @@ always_ff @(posedge clk) begin
     current_state <= next_state;
 end
 
-assign w = ((current_state == Forward) && (manual_on));
-assign s = ((current_state == Backward) && (manual_on));
-assign a = ((current_state == Left) && (manual_on));
-assign d = ((current_state == Right) && (manual_on));
-assign wa = ((current_state == Left_forward) && (manual_on));
-assign wd = ((current_state == Right_forward) && (manual_on));
-assign as = ((current_state == Left_backward) && (manual_on));
-assign ds = ((current_state == Right_backward) && (manual_on));
-assign stop = ((current_state == Stop) && (manual_on));
+assign w = ((current_state == Forward) && ((manual_on) || (auto_on)));
+assign s = ((current_state == Backward) && ((manual_on) || (auto_on)));
+assign a = ((current_state == Left) && ((manual_on)  || (auto_on)));
+assign d = ((current_state == Right) && ((manual_on) || (auto_on)));
+assign wa = ((current_state == Left_forward) && ((manual_on) || (auto_on)));
+assign wd = ((current_state == Right_forward) && ((manual_on) || (auto_on)));
+assign as = ((current_state == Left_backward) && ((manual_on) || (auto_on)));
+assign ds = ((current_state == Right_backward) && ((manual_on) || (auto_on)));
+assign stop = ((current_state == Stop) && ((manual_on) || (auto_on)));
     
 endmodule
