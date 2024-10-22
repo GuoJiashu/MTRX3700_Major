@@ -204,13 +204,25 @@ class App:
                                        active_color="red", command=self.on_red_toggle)
         self.red_toggle.pack(side='left', padx=5)
 
-        self.blue_toggle = ToggleSwitch(self.toggle_frame, width=60, height=30, bg_color="blue",
-                                        active_color="blue", command=self.on_blue_toggle)
+        self.blue_toggle = ToggleSwitch(self.toggle_frame, width=60, height=30, bg_color="green",
+                                        active_color="green", command=self.on_blue_toggle)
         self.blue_toggle.pack(side='left', padx=5)
 
         # 初始化时禁用红色和蓝色的开关
         self.red_toggle.set_enabled(False)
         self.blue_toggle.set_enabled(False)
+
+        # 创建一个框架来容纳新增的按钮
+        self.button_frame = tk.Frame(master)
+        self.button_frame.pack(pady=10)
+
+        # 添加新增的按钮
+        self.special_button = tk.Button(self.button_frame, text="servo down", command=self.send_special_command, width=20,
+                                        bg="orange")
+        self.special_button.pack(pady=5)
+
+        # 状态变量用于切换发送的指令
+        self.special_command_state = False  # False: 11110000 (0xF0), True: 11000000 (0xC0)
 
         # 启动 socket 服务器线程
         self.socket_thread = threading.Thread(target=self.run_socket_server, daemon=True)
@@ -472,6 +484,11 @@ class App:
     def on_key_press(self, event):
         key = event.keysym.lower()
         if key in self.key_to_bit and self.master.focus_get() != self.entry and not self.is_paused:
+            # **Begin Modification**
+            if self.toggle_switch.is_on:
+                self.toggle_switch.set_state(False)
+            # **End Modification**
+
             if key not in self.keys_pressed:
                 self.keys_pressed.add(key)
                 self.update_direction_labels()
@@ -513,11 +530,9 @@ class App:
             self.is_paused = not self.is_paused  # 切换状态
             if self.is_paused:
                 self.pause_start_label.config(image=self.pause_img)
-                self.display_message("Car Stop")
                 self.message_queue.put(0x10)  # 发送暂停消息，表示停止
             else:
                 self.pause_start_label.config(image=self.start_img)
-                self.display_message("Car Running")
                 self.message_queue.put(0x00)
                 # 发送当前按键的独热码
                 bitmask = 0
@@ -530,14 +545,12 @@ class App:
     def on_toggle_switch(self, is_on):
         if is_on:
             message = 0xFF  # 自动模式开启时发送 11111111
-            self.display_message("Auto Mode On")
             self.bottom_status_label.config(text="Auto Mode On", bg="green")
             # 启用红色和蓝色的开关
             self.red_toggle.set_enabled(True)
             self.blue_toggle.set_enabled(True)
         else:
             message = 0x00  # 自动模式关闭时发送 00000000
-            self.display_message("Auto Mode Off")
             self.bottom_status_label.config(text="Auto Mode Off", bg="red")
             # 禁用红色和蓝色的开关
             self.red_toggle.set_enabled(False)
@@ -553,10 +566,8 @@ class App:
         if is_on:
             if self.blue_toggle.is_on:
                 self.blue_toggle.set_state(False)
-            self.display_message("Red Toggle On")
             self.message_queue.put(0x80)  # 10000000
         else:
-            self.display_message("Red Toggle Off")
             self.message_queue.put(0x40)  # 01000000
 
     # 蓝色开关的回调函数
@@ -564,10 +575,8 @@ class App:
         if is_on:
             if self.red_toggle.is_on:
                 self.red_toggle.set_state(False)
-            self.display_message("Blue Toggle On")
             self.message_queue.put(0x20)  # 00100000
         else:
-            self.display_message("Blue Toggle Off")
             self.message_queue.put(0x10)  # 00010000
 
     def continuous_send_bitmask(self):
@@ -590,6 +599,29 @@ class App:
             self.last_sent_bitmask = bitmask_bytes
 
         self.master.after(100, self.continuous_send_bitmask)
+
+    def send_special_command(self):
+        if self.conn:
+            try:
+                if not self.special_command_state:
+                    # 当前状态为 False，发送 0xF0
+                    special_byte = 0xF0
+                    self.special_button.config(text="servo up")  # 更新按钮文本
+                else:
+                    # 当前状态为 True，发送 0xC0
+                    special_byte = 0xC0
+                    self.special_button.config(text="servo down")
+                # 切换状态
+                self.special_command_state = not self.special_command_state
+
+                # 将字节添加到消息队列
+                self.message_queue.put(special_byte)
+            except Exception as e:
+                self.display_message("Error sending special command: " + str(e))
+                self.update_status("Disconnected", "red")
+                self.conn = None
+        else:
+            self.display_message("Not connected to Arduino")
 
 
 if __name__ == "__main__":
