@@ -22,6 +22,7 @@ module mid_line_error#(parameter IMAGE_WIDTH = 320, IMAGE_LENGTH = 240, COLOUR_B
 	logic [$clog2(IMAGE_LENGTH)-1:0] row_counter;
 	
 	always_comb begin
+		if (pixel[11:8] == 12'bfff) pixel_temp = 1;
 		if (red) begin
 			pixel_temp = (pixel[11:8] == 4'b1111);
 		end
