@@ -3,7 +3,7 @@
 // The Echo is a distance object that is pulse width and the range in proportion.
 // You can calculate the range through the time interval between sending trigger signal and receiving echo signal
 
-module sensor_driver#(parameter ten_us = 10'd683)(
+module sensor_driver#(parameter ten_us = 10'd500)(
   input clk,
   input rst,
   input echo,

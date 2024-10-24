@@ -32,7 +32,8 @@ end
 	echo = 0;
 	enable = 0;
 
-	
+	$dumpfile("waveform.vcd");
+	$dumpvars();
 	#(1 * CLK_PERIOD)
 	LEDR = 0;
 
