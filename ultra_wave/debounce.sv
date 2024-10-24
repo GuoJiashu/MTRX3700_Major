@@ -23,4 +23,3 @@ module debounce (
   end
   assign button_edge = (button_pressed > button_q0);
 endmodule
-
