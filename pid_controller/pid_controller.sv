@@ -1,13 +1,14 @@
 module pid_controller #(
-   parameter integer K_P = 18,   // 放大比例系数
-   parameter integer K_I = 10,   // 放大积分系数
-   parameter integer K_D = 10    // 放大微分系数
+   parameter integer K_P = 14,   // 放大比例系数
+   parameter integer K_I = 0,   // 放大积分系数
+   parameter integer K_D = 0    // 放大微分系数
 )(
    input logic clk,                  
    input logic rst,                  
    input logic signed [31:0] error,  
-   input logic error_ready,          
-   output logic signed [31:0] controller_output  
+   input logic error_ready,   
+	output logic cmd_valid,
+   output logic signed [31:0] controller_output
 );
 
    // 定义中间变量
@@ -16,6 +17,9 @@ module pid_controller #(
    logic signed [31:0] D;            // 微分项
    logic signed [31:0] P;            // 比例项
 	logic signed [31:0] output_temp;
+	logic cmd_valid_d
+	;
+	assign cmd_valid_d = error_ready;
 	
    always_ff @(posedge clk or posedge rst) begin
       if (rst) begin
@@ -35,11 +39,11 @@ module pid_controller #(
 
          // Update
          error_prev <= error;
+			cmd_valid <= cmd_valid_d;
       end
    end
 	
-	assign output_temp = (P + I*K_I + D*K_D) / 264; // max magnitude = 2640, divided by 264 to make sure with in the range of 0 to 10
-   // 将输出控制在 0.1 ~ 1.0 (100 ~ 1000) 之间, 最终输出时再缩小范围
-   assign controller_output = (output_temp < -10) ? -10 : (output_temp > 10) ? 10 : output_temp;  // 缩小到0到10
+	assign output_temp = (P + I*K_I + D*K_D) / 1000; // max magnitude = 2640, divided by 264 to make sure with in the range of 0 to 10
+   assign controller_output = (output_temp < -5) ? -5: (output_temp > 5) ? 5 : output_temp;  // 缩小到0到10
 
 endmodule
