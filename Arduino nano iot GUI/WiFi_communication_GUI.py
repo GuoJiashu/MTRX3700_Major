@@ -216,13 +216,79 @@ class App:
         self.button_frame = tk.Frame(master)
         self.button_frame.pack(pady=10)
 
-        # 添加新增的按钮
-        self.special_button = tk.Button(self.button_frame, text="servo down", command=self.send_special_command, width=20,
+        # 添加舵机控制按钮
+        self.special_button = tk.Button(self.button_frame, text="servo down", command=self.send_special_command,
+                                        width=20,
                                         bg="orange")
         self.special_button.pack(pady=5)
 
         # 状态变量用于切换发送的指令
         self.special_command_state = False  # False: 11110000 (0xF0), True: 11000000 (0xC0)
+
+        # 初始化蜂鸣器级别变量
+        self.buzzer_level = 0
+        self.buzzer_max_level = 4
+        self.buzzer_min_level = 0
+
+        # 创建一个框架用于蜂鸣器控制按钮
+        self.buzzer_frame = tk.Frame(self.button_frame)
+        self.buzzer_frame.pack(pady=5)
+
+        # 创建“-”按钮用于减少蜂鸣器级别
+        self.buzzer_minus_button = tk.Button(
+            self.buzzer_frame, text="-", command=self.decrease_buzzer_level
+        )
+        self.buzzer_minus_button.pack(side='left', padx=5)
+
+        # 创建“+”按钮用于增加蜂鸣器级别
+        self.buzzer_plus_button = tk.Button(
+            self.buzzer_frame, text="+", command=self.increase_buzzer_level
+        )
+        self.buzzer_plus_button.pack(side='left', padx=5)
+
+        # 显示当前蜂鸣器级别的标签
+        self.buzzer_level_label = tk.Label(
+            self.buzzer_frame, text=f"Buzzer Level: {self.buzzer_level}"
+        )
+        self.buzzer_level_label.pack(side='left', padx=5)
+
+        # 更新蜂鸣器控件以设置初始状态
+        self.update_buzzer_controls()
+
+        # **添加速度控制按钮**
+
+        # 初始化速度级别变量
+        self.speed_level = 0
+        self.speed_max_level = 4  # 修改为最高级别 4
+        self.speed_min_level = 0
+
+        # 定义速度级别对应的二进制值列表
+        self.speed_values = [0xAF, 0x8F, 0x4F, 0x2F, 0x1F]  # 移除最高级别 0x0F
+
+        # 创建一个框架用于速度控制按钮
+        self.speed_frame = tk.Frame(self.button_frame)
+        self.speed_frame.pack(pady=5)
+
+        # 创建“-”按钮用于减少速度级别
+        self.speed_minus_button = tk.Button(
+            self.speed_frame, text="-", command=self.decrease_speed_level
+        )
+        self.speed_minus_button.pack(side='left', padx=5)
+
+        # 创建“+”按钮用于增加速度级别
+        self.speed_plus_button = tk.Button(
+            self.speed_frame, text="+", command=self.increase_speed_level
+        )
+        self.speed_plus_button.pack(side='left', padx=5)
+
+        # 显示当前速度级别的标签
+        self.speed_level_label = tk.Label(
+            self.speed_frame, text=f"Speed Level: {self.speed_level}"
+        )
+        self.speed_level_label.pack(side='left', padx=5)
+
+        # 更新速度控件以设置初始状态
+        self.update_speed_controls()
 
         # 启动 socket 服务器线程
         self.socket_thread = threading.Thread(target=self.run_socket_server, daemon=True)
@@ -480,14 +546,11 @@ class App:
         self.message_sending_in_progress = False
         # 不需要立即发送下一个消息，process_message_queue 会处理
 
-    # 键盘事件处理程序
     def on_key_press(self, event):
         key = event.keysym.lower()
         if key in self.key_to_bit and self.master.focus_get() != self.entry and not self.is_paused:
-            # **Begin Modification**
             if self.toggle_switch.is_on:
                 self.toggle_switch.set_state(False)
-            # **End Modification**
 
             if key not in self.keys_pressed:
                 self.keys_pressed.add(key)
@@ -524,7 +587,6 @@ class App:
         else:
             self.right_label.config(image=self.gray_right_img)
 
-    # 空格键事件处理
     def on_space_press(self, event):
         if self.master.focus_get() != self.entry:
             self.is_paused = not self.is_paused  # 切换状态
@@ -541,7 +603,6 @@ class App:
                 self.message_queue.put(bitmask)
             self.process_message_queue()
 
-    # ToggleSwitch 的回调函数
     def on_toggle_switch(self, is_on):
         if is_on:
             message = 0xFF  # 自动模式开启时发送 11111111
@@ -561,7 +622,6 @@ class App:
         self.message_queue.put(message)
         self.process_message_queue()
 
-    # 红色开关的回调函数
     def on_red_toggle(self, is_on):
         if is_on:
             if self.blue_toggle.is_on:
@@ -570,7 +630,6 @@ class App:
         else:
             self.message_queue.put(0x40)  # 01000000
 
-    # 蓝色开关的回调函数
     def on_blue_toggle(self, is_on):
         if is_on:
             if self.red_toggle.is_on:
@@ -604,11 +663,11 @@ class App:
         if self.conn:
             try:
                 if not self.special_command_state:
-                    # 当前状态为 False，发送 0xF0
-                    special_byte = 0xF0
+                    # 当前状态为 False，发送 00110000
+                    special_byte = 0x30
                     self.special_button.config(text="servo up")  # 更新按钮文本
                 else:
-                    # 当前状态为 True，发送 0xC0
+                    # 当前状态为 True，发送 11000000
                     special_byte = 0xC0
                     self.special_button.config(text="servo down")
                 # 切换状态
@@ -622,6 +681,81 @@ class App:
                 self.conn = None
         else:
             self.display_message("Not connected to Arduino")
+
+    def increase_buzzer_level(self):
+        if self.buzzer_level < self.buzzer_max_level:
+            self.buzzer_level += 1
+            value = 0xF0 | (1 << (self.buzzer_level - 1))
+            self.message_queue.put(value)
+            self.process_message_queue()
+            self.update_buzzer_controls()
+        else:
+            # 达到最大级别，禁用“+”按钮
+            self.buzzer_plus_button.config(state='disabled')
+
+    def decrease_buzzer_level(self):
+        if self.buzzer_level > self.buzzer_min_level:
+            self.buzzer_level -= 1
+            if self.buzzer_level == 0:
+                value = 0xF0
+            else:
+                value = 0xF0 | (1 << (self.buzzer_level - 1))
+            self.message_queue.put(value)
+            self.process_message_queue()
+            self.update_buzzer_controls()
+        else:
+            # 达到最小级别，禁用“-”按钮
+            self.buzzer_minus_button.config(state='disabled')
+
+    def update_buzzer_controls(self):
+        # 更新蜂鸣器级别标签
+        self.buzzer_level_label.config(text=f"Buzzer Level: {self.buzzer_level}")
+        # 根据当前级别启用或禁用按钮
+        if self.buzzer_level <= self.buzzer_min_level:
+            self.buzzer_minus_button.config(state='disabled')
+        else:
+            self.buzzer_minus_button.config(state='normal')
+
+        if self.buzzer_level >= self.buzzer_max_level:
+            self.buzzer_plus_button.config(state='disabled')
+        else:
+            self.buzzer_plus_button.config(state='normal')
+
+    def increase_speed_level(self):
+        if self.speed_level < self.speed_max_level:
+            self.speed_level += 1
+            value = self.speed_values[self.speed_level]
+            self.message_queue.put(value)
+            self.process_message_queue()
+            self.update_speed_controls()
+        else:
+            # 达到最大级别，禁用“+”按钮
+            self.speed_plus_button.config(state='disabled')
+
+    def decrease_speed_level(self):
+        if self.speed_level > self.speed_min_level:
+            self.speed_level -= 1
+            value = self.speed_values[self.speed_level]
+            self.message_queue.put(value)
+            self.process_message_queue()
+            self.update_speed_controls()
+        else:
+            # 达到最小级别，禁用“-”按钮
+            self.speed_minus_button.config(state='disabled')
+
+    def update_speed_controls(self):
+        # 更新速度级别标签
+        self.speed_level_label.config(text=f"Speed Level: {self.speed_level}")
+        # 根据当前级别启用或禁用按钮
+        if self.speed_level <= self.speed_min_level:
+            self.speed_minus_button.config(state='disabled')
+        else:
+            self.speed_minus_button.config(state='normal')
+
+        if self.speed_level >= self.speed_max_level:
+            self.speed_plus_button.config(state='disabled')
+        else:
+            self.speed_plus_button.config(state='normal')
 
 
 if __name__ == "__main__":
