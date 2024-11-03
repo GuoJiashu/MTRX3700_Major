@@ -1,8 +1,8 @@
 #include <WiFiNINA.h>
 
 const int buzzerPin = 5;
-int buzzerFrequency = 2000;
-int frequencyStep = 1000;
+int buzzerFrequency = 600;
+int frequencyStep = 100;
 bool buzzerOn = false;
 
 const char ssid[] = "KAN";
